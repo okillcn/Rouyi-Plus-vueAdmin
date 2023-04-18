@@ -1,0 +1,8 @@
+.idea
+/protected/runtime/*
+/*.buildpath
+/.settings
+/downloads/*
+/node_modules/*
+/.idea/*
+/.history/*
