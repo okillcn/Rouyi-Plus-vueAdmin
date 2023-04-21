@@ -19,7 +19,9 @@
 > 项目代码、文档 均开源免费可商用 遵循开源协议在项目中保留开源协议文件即可<br>
 活到老写到老 为兴趣而开源 为学习而开源 为让大家真正可以学到技术而开源
 
-> 系统演示: [传送门](https://gitee.com/dromara/RuoYi-Vue-Plus/wikis/pages?sort_id=4836388&doc_id=1469725)
+> 本项目主要是扩展了RuoYi-Vue的前端，后端基本没有改动，后端的代码风格、结构、功能都是RuoYi-Vue的，只是将RuoYi-Vue的前端替换成了本项目的前端
+> 我们使用了vue-naxt-admin的框架，这个框架是基于vue3-element-admin的
+> 本项目的前端是基于vue3-element-admin的，后端是基于RuoYi-VuePlus的
 
 # 本框架与RuoYi的功能差异
 
