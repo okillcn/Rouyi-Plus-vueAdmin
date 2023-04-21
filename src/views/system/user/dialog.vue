@@ -23,8 +23,9 @@
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="性别">
 							<el-select v-model="state.ruleForm.sex" placeholder="请选择" clearable class="w100">
-								<el-option label="男" value="1"></el-option>
-								<el-option label="女" value="0"></el-option>
+								<el-option label="男" value="0"></el-option>
+								<el-option label="女" value="1"></el-option>
+								<el-option label="未知" value="2"></el-option>
 							</el-select>
 						</el-form-item>
 					</el-col>
@@ -89,7 +90,7 @@
 			</el-form>
 			<template #footer>
 				<span class="dialog-footer">
-					<el-button @click="onCancel" size="default">取 消</el-button>
+					<el-button @click="closeDialog()" size="default">取 消</el-button>
 					<el-button type="primary" @click="onSubmit" size="default">{{ state.dialog.submitTxt }}</el-button>
 				</span>
 			</template>

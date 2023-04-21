@@ -14,7 +14,7 @@ import request from '/@/utils/request';
  * @method authUserCancel 取消用户授权角色
  * @method authUserCancelAll 批量取消用户授权角色
  * @method authUserSelectAll 授权用户选择
- * @method appTreeSelect 根据角色查询应用下拉树结构
+ * @method deptTreeSelect 根据角色查询应用下拉树结构
  * @param roleId 角色ID
  * @param query
  * @returns
@@ -108,9 +108,9 @@ export function useRole() {
         params: { userIds }
       })
     },
-    appTreeSelect: (roleId:any) => {
+    deptTreeSelect: (roleId:any) => {
       return request({
-        url: '/10086/system/role/appTreeSelect/' + roleId,
+        url: '/10086/system/role/deptTree/' + roleId,
         method: 'get'
       })
     }

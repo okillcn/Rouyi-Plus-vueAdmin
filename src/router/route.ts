@@ -123,21 +123,21 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							icon: 'iconfont icon-icon-',
 						},
 					},
-					{
-						path: '/system/dept',
-						name: 'systemDept',
-						component: () => import('/@/views/system/dept/index.vue'),
-						meta: {
-							title: 'message.router.systemDept',
-							isLink: '',
-							isHide: false,
-							isKeepAlive: true,
-							isAffix: false,
-							isIframe: false,
-							roles: ['admin'],
-							icon: 'ele-OfficeBuilding',
-						},
-					},
+					// {
+					// 	path: '/system/dept',
+					// 	name: 'systemDept',
+					// 	component: () => import('/@/views/system/dept/index.vue'),
+					// 	meta: {
+					// 		title: 'message.router.systemDept',
+					// 		isLink: '',
+					// 		isHide: false,
+					// 		isKeepAlive: true,
+					// 		isAffix: false,
+					// 		isIframe: false,
+					// 		roles: ['admin'],
+					// 		icon: 'ele-OfficeBuilding',
+					// 	},
+					// },
 					{
 						path: '/system/dic',
 						name: 'systemDic',
@@ -1222,20 +1222,19 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 		meta: {
 			title: '登录',
 		},
-	},{
-		path: '/visualizingDemo1',
-		name: 'visualizingDemo1',
-		component: () => import('/@/views/visualizing/demo1.vue'),
+	}, {
+		path: '/test',
+		name: 'test',
+		component: () => import('/@/views/tools/test.vue'),
 		meta: {
-			title: 'message.router.visualizingLinkDemo1',
+			title: 'message.router.tools',
+			isLink: '',
+			isHide: false,
+			isKeepAlive: true,
+			isAffix: false,
+			isIframe: false,
+			roles: ['admin', 'common'],
+			icon: 'iconfont icon-gongju',
 		},
-	},
-	{
-		path: '/visualizingDemo2',
-		name: 'visualizingDemo2',
-		component: () => import('/@/views/visualizing/demo2.vue'),
-		meta: {
-			title: 'message.router.visualizingLinkDemo2',
-		},
-	},
+	}
 ];

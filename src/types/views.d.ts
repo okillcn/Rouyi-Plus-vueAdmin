@@ -59,10 +59,10 @@ declare type ParamsState = {
  * 角色数据类型
  **/
 declare interface RowRoleType {
-	createBy: null | string;
+	createBy: string;
 	createTime: string;
-	updateBy: null | string;
-	updateTime: null | string;
+	updateBy: string;
+	updateTime: string;
 	roleId: number;
 	roleName: string;
 	roleKey: string;
@@ -74,8 +74,8 @@ declare interface RowRoleType {
 	delFlag: string;
 	remark: string;
 	flag: boolean;
-	menuIds: null | number[];
-	deptIds: null | number[];
+	menuIds: [];
+	deptIds: [];
 	admin: boolean;
 	[k: string]: any;
   }

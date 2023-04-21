@@ -57,13 +57,14 @@
 			<el-table :data="state.tableData.data" v-loading="state.tableData.loading" style="width: 100%"
 				ref="multipleTableRef" @selection-change="handleSelectionChange" @sort-change="handleSortChange">
 				<el-table-column type="selection" width="55" />
-				<el-table-column prop="userId" label="序号" width="60" show-overflow-tooltip></el-table-column>
-				<el-table-column prop="userName" label="账户名称" show-overflow-tooltip></el-table-column>
+				<el-table-column prop="userId" label="用户id" width="60" show-overflow-tooltip></el-table-column>
+				<el-table-column prop="userName" label="账号" show-overflow-tooltip></el-table-column>
 				<el-table-column prop="nickName" label="用户昵称" show-overflow-tooltip></el-table-column>
 				<el-table-column prop="sex" label="性别" show-overflow-tooltip>
 					<template #default="scope">
-						<span v-if="scope.row.sex" active-value="0" inactive-value="1">男</span>
-						<span v-else>女</span>
+						<span v-if="scope.row.sex === '0'">男</span>
+						<span v-else-if="scope.row.sex === '1'">女</span>
+						<span v-else>未知</span>
 					</template>
 				</el-table-column>
 				<el-table-column prop="dept.deptName" label="部门" show-overflow-tooltip></el-table-column>
@@ -71,8 +72,9 @@
 				<el-table-column prop="email" label="邮箱" show-overflow-tooltip></el-table-column>
 				<el-table-column prop="status" label="用户状态" show-overflow-tooltip>
 					<template #default="scope">
-						<el-tag type="success" v-if="scope.row.status" active-value="0" inactive-value="1">启用</el-tag>
-						<el-tag type="info" v-else>禁用</el-tag>
+						<el-tag :type="scope.row.status === '0' ? 'success' : 'info'" active-value="0" inactive-value="1">
+							{{ scope.row.status === '0' ? '启用' : '禁用' }}
+						</el-tag>
 					</template>
 				</el-table-column>
 				<el-table-column prop="loginIp" label="登录IP" show-overflow-tooltip></el-table-column>
@@ -296,4 +298,5 @@ onMounted(() => {
 .mt10 {
 	max-width: 140px;
 	margin: 10px 0 10px 10px;
-}</style>
+}
+</style>
