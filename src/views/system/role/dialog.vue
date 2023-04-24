@@ -170,6 +170,7 @@ const state = reactive({
 		title: '',
 		submitTxt: '',
 	},
+	dicts: ['sys_normal_disable'],
 });
 
 /**
@@ -250,7 +251,7 @@ const getRoleData = async (roleId: any) => {
 
 const dataScopeSelectChange = (value: string) => {
 	if (value !== '2') {
-		menuTreeRef.value!.setCheckedKeys([]);
+		deptTfeeRef.value!.setCheckedKeys([]);
 	}
 };
 

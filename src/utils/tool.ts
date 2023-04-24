@@ -45,14 +45,24 @@ export function parseTime(time:any, pattern:any) {
   return time_str
 }
 
-// 表单重置
+/**
+ * 表单重置
+ * @param this 当前表单对象
+ * @param refName 表单ref名称
+ * */
 export function resetForm(this: any, refName:any) {
   if (this.$refs[refName]) {
     this.$refs[refName].resetFields();
   }
 }
 
-// 添加日期范围
+/*
+* 添加日期范围，用于搜索
+* @param params 参数对象
+* @param dateRange 日期范围数组
+* @param propName 日期字段名
+* @returns {*} 
+*/
 export function addDateRange(params:any, dateRange:any, propName:any) {
   let search = params;
   search.params = typeof (search.params) === 'object' && search.params !== null && !Array.isArray(search.params) ? search.params : {};
@@ -67,7 +77,11 @@ export function addDateRange(params:any, dateRange:any, propName:any) {
   return search;
 }
 
-// 回显数据字典
+/**
+ * 回显数据字典
+ * @param datas 数据字典
+ * @param value 值
+ */ 
 export function selectDictLabel(datas:any, value:any) {
   if (value === undefined) {
     return "";
@@ -133,7 +147,12 @@ export function parseStrEmpty(str:any) {
   return str;
 }
 
-// 数据合并
+/**
+ * 数据合并
+ * @param {*} source 数据源
+ * @param {*} target 目标数据
+ * @returns
+ * */
 export function mergeRecursive(source:any, target:any) {
   for (var p in target) {
     try {

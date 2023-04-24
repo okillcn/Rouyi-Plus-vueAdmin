@@ -124,7 +124,7 @@ const addBrowserSetSession = (tagsViewList: Array<object>) => {
 };
 // 获取 pinia 中的 tagsViewRoutes 列表
 const getTagsViewRoutes = async () => {
-	state.routeActive = await setTagsViewHighlight(route);
+	state.routeActive = await setTagsViewHighlight(route as any);
 	state.routePath = (await route.meta.isDynamic) ? route.meta.isDynamicPath : route.path;
 	state.tagsViewList = [];
 	state.tagsViewRoutesList = tagsViewRoutes.value;
@@ -578,7 +578,7 @@ onMounted(() => {
 });
 // 路由更新时（组件内生命钩子）
 onBeforeRouteUpdate(async (to) => {
-	state.routeActive = setTagsViewHighlight(to);
+	state.routeActive = setTagsViewHighlight(to as any );
 	state.routePath = to.meta.isDynamic ? to.meta.isDynamicPath : to.path;
 	await addTagsView(to.path, <RouteToFrom>to);
 	getTagsRefsIndex(getThemeConfig.value.isShareTagsView ? state.routePath : state.routeActive);

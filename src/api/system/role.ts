@@ -9,8 +9,8 @@ import request from '/@/utils/request';
  * @method dataScope 角色数据权限
  * @method changeRoleStatus 修改角色状态
  * @method delRole 删除角色
- * @method allocatedUserList 查询角色已授权用户列表
- * @method unallocatedUserList 查询角色未授权用户列表
+ * @method allocatedUserList 查询角色下已授权用户列表
+ * @method unallocatedUserList 查询角色下未授权用户列表
  * @method authUserCancel 取消用户授权角色
  * @method authUserCancelAll 批量取消用户授权角色
  * @method authUserSelectAll 授权用户选择

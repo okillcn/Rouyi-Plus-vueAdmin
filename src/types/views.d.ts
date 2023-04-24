@@ -78,7 +78,7 @@ declare interface RowRoleType {
 	deptIds: [];
 	admin: boolean;
 	[k: string]: any;
-  }
+}
 
 interface SysRoleTableType extends TableType {
 	data: RowRoleType[];
@@ -120,32 +120,32 @@ declare type RowPostType<T = any> = {
  * RowUserType
  * */
 declare type RowUserType<T = any> = {
-    createBy: string,
-    createTime: string,
-    updateBy: string,
-    updateTime: string,
-    userId: number,
-    deptId: number,
-    userName: string,
-    nickName: string,
-    password: string,
-    userType: string | null,
-    email: string,
-    phonenumber: string,
-    sex: "0" | "1" | "2",
-    avatar: string,
-    status: "0" | "1",
-    delFlag: "0" | "1",
-    loginIp: string,
-    loginDate: string,
-    remark: string,
-    dept: RowDeptType,
-    roles: any,
-    roleIds: [],
-    postIds: [],
-    roleId: number,
-    admin: boolean,
-    [k: string]: T;
+	createBy: string,
+	createTime: string,
+	updateBy: string,
+	updateTime: string,
+	userId: number,
+	deptId: number,
+	userName: string,
+	nickName: string,
+	password: string,
+	userType: string | null,
+	email: string,
+	phonenumber: string,
+	sex: "0" | "1" | "2",
+	avatar: string,
+	status: "0" | "1",
+	delFlag: "0" | "1",
+	loginIp: string,
+	loginDate: string,
+	remark: string,
+	dept: RowDeptType,
+	roles: any,
+	roleIds: [],
+	postIds: [],
+	roleId: number,
+	admin: boolean,
+	[k: string]: T;
 };
 
 
@@ -154,9 +154,50 @@ interface SysUserTableType extends TableType {
 }
 
 declare interface SysUserState {
-[x: string]: any;
+	[x: string]: any;
 	tableData: SysUserTableType;
 }
+
+
+/**
+ * 菜单数据类型
+ * @param T
+ * RowMenuType
+ */
+declare type RowMenuType<T = any> = {
+	createBy: string;
+	createTime: string;
+	updateBy: string;
+	updateTime: string;
+	parentName: string;
+	parentId: number;
+	children: RowMenuType[];
+	menuId: number;
+	menuName: string;
+	orderNum: number;
+	path: string;
+	component: string;
+	queryParam: string;
+	isFrame: string;
+	isCache: string;
+	menuType: string;
+	visible: string;
+	status: string;
+	perms: string;
+	icon: string;
+	remark: string;
+	[k: string]: T;
+};
+
+interface SysMenuTableType extends TableType {
+	data: RowMenuType[];
+}
+
+declare interface SysMenuState {
+	[x: string]: any;
+	tableData: SysMenuTableType;
+}
+
 
 /**
  * 部门树形数据类型

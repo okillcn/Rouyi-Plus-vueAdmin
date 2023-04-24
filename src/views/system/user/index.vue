@@ -4,22 +4,22 @@
 			<div class="system-user-search">
 				<el-row :gutter="20">
 					<el-col :span="24">
-						<el-input size="default" placeholder="请输入用户名称" v-model="state.tableData.param.userName"
+						<el-input size="default" placeholder="名称查询" v-model="state.tableData.param.userName"
 							class="mt10"></el-input>
-						<el-input size="default" placeholder="请输入手机号" v-model="state.tableData.param.phonenumber"
+						<el-input size="default" placeholder="手机号查询" v-model="state.tableData.param.phonenumber"
 							class="mt10"></el-input>
-						<el-select size="default" placeholder="请选择状态" v-model="state.tableData.param.status" class="mt10">
+						<el-select size="default" placeholder="状态查询" v-model="state.tableData.param.status" class="mt10">
 							<el-option label="启用" value="0"></el-option>
 							<el-option label="禁用" value="1"></el-option>
 						</el-select>
 						<el-form-item size="default" class="mt10" style="display: inline-block;">
 							<el-cascader size="default" :options="state.DeptData" :props="{
-								checkStrictly: true,
-								value: 'id',
-								label: 'label',
-								children: 'children',
-								leaf: 'leaf'
-							}" filterable placeholder="请选择部门" clearable v-model="state.tableData.param.deptId"
+									checkStrictly: true,
+									value: 'id',
+									label: 'label',
+									children: 'children',
+									leaf: 'leaf'
+								}" filterable placeholder="部门查询" clearable v-model="state.tableData.param.deptId"
 								@change="handleCascadeChange">
 								<template #default="{ node, data }">
 									<span>{{ data.label }}</span>
@@ -57,9 +57,16 @@
 			<el-table :data="state.tableData.data" v-loading="state.tableData.loading" style="width: 100%"
 				ref="multipleTableRef" @selection-change="handleSelectionChange" @sort-change="handleSortChange">
 				<el-table-column type="selection" width="55" />
-				<el-table-column prop="userId" label="用户id" width="60" show-overflow-tooltip></el-table-column>
-				<el-table-column prop="userName" label="账号" show-overflow-tooltip></el-table-column>
-				<el-table-column prop="nickName" label="用户昵称" show-overflow-tooltip></el-table-column>
+				<el-table-column prop="userId" label="用户id" width="120" show-overflow-tooltip></el-table-column>
+				<el-table-column prop="avatar" label="头像">
+					<template #default="scope">
+						<el-avatar :size="60" :src="scope.row.avatar">
+							<img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" />
+						</el-avatar>
+					</template>
+				</el-table-column>
+				<el-table-column prop="userName" label="账号" width="100" show-overflow-tooltip></el-table-column>
+				<el-table-column prop="nickName" label="昵称" show-overflow-tooltip></el-table-column>
 				<el-table-column prop="sex" label="性别" show-overflow-tooltip>
 					<template #default="scope">
 						<span v-if="scope.row.sex === '0'">男</span>
@@ -67,18 +74,18 @@
 						<span v-else>未知</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="dept.deptName" label="部门" show-overflow-tooltip></el-table-column>
-				<el-table-column prop="phonenumber" label="手机号" show-overflow-tooltip></el-table-column>
-				<el-table-column prop="email" label="邮箱" show-overflow-tooltip></el-table-column>
-				<el-table-column prop="status" label="用户状态" show-overflow-tooltip>
+				<el-table-column prop="dept.deptName" label="部门" width="120" show-overflow-tooltip></el-table-column>
+				<el-table-column prop="phonenumber" label="手机号" width="120" show-overflow-tooltip></el-table-column>
+				<el-table-column prop="email" label="邮箱" width="120" show-overflow-tooltip></el-table-column>
+				<el-table-column prop="status" label="用户状态"  width="65" show-overflow-tooltip>
 					<template #default="scope">
 						<el-tag :type="scope.row.status === '0' ? 'success' : 'info'" active-value="0" inactive-value="1">
 							{{ scope.row.status === '0' ? '启用' : '禁用' }}
 						</el-tag>
 					</template>
 				</el-table-column>
-				<el-table-column prop="loginIp" label="登录IP" show-overflow-tooltip></el-table-column>
-				<el-table-column prop="createTime" label="创建时间" show-overflow-tooltip sortable></el-table-column>
+				<el-table-column prop="loginIp" label="登录IP"  width="120" show-overflow-tooltip></el-table-column>
+				<el-table-column prop="createTime" label="创建时间"  width="120" show-overflow-tooltip sortable></el-table-column>
 				<el-table-column label="操作" width="100" fixed="right">
 					<template #default="scope">
 						<el-button :disabled="scope.row.admin" size="small" text type="primary"
@@ -125,6 +132,7 @@ const state = reactive<SysUserState>({
 	},
 	DeptData: [] as TreeType[], // 部门数据
 	postDate: [] as TreeType[], // 岗位数据
+	dicts: ['sys_normal_disable', 'sys_user_sex'], // 字典数据 0-正常 1-禁用 0-男 1-女
 });
 
 

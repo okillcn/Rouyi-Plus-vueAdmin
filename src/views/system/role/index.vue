@@ -55,8 +55,8 @@
 				<el-table-column label="操作" width="100" fixed="right">
 					<template #default="scope">
 						<el-button size="small" text type="primary"
-							@click="onOpenEditRole('edit', scope.row)">修改</el-button>
-						<el-button :disabled="scope.row.admin" size="small" text type="primary"
+							@click="onOpenEditRole('edit', scope.row)" :disabled="scope.row.admin">修改</el-button>
+						<el-button :disabled="scope.row.admin" size="small" text type="primary" 
 							@click="onRowDel(scope.row)">删除</el-button>
 					</template>
 				</el-table-column>
@@ -94,7 +94,7 @@ const state = reactive({
 			roleKey: undefined,
 			status: undefined
 		},
-
+		dicts: ['sys_normal_disable'],
 	}
 });
 
