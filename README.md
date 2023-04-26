@@ -245,11 +245,10 @@ com.ruoyi.system.service.impl.SysMenuServiceImpl
 
 
 # 演示图：
+<img src="./doc/1.png" style="zoom: 25%;" />
 
-<img src="D:\Workspaces\javaWeb\后台管理项目\后台管理项目3\Rouyi-plus-admin\doc\1.png" style="zoom: 25%;" />
+<img src="./doc/image-20230426220326037.png" style="zoom:25%;" />
 
-<img src="D:\Workspaces\javaWeb\后台管理项目\后台管理项目3\Rouyi-plus-admin\doc\image-20230426220326037.png" style="zoom:25%;" />
+<img src="./doc/image-20230426220354822.png" style="zoom:25%;" />
 
-<img src="D:\Workspaces\javaWeb\后台管理项目\后台管理项目3\Rouyi-plus-admin\doc\image-20230426220354822.png" style="zoom:25%;" />
-
-<img src="D:\Workspaces\javaWeb\后台管理项目\后台管理项目3\Rouyi-plus-admin\doc\220652.png" style="zoom:25%;" />
+<img src="./doc/220652.png" style="zoom:25%;" />
