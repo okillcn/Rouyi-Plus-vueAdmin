@@ -66,7 +66,7 @@ cnpm run build
  * }
 ```
 
-需要添加数据库字段：
+需要添加sys_menu数据库字段：
 
 ```sql
 is_affix` enum('0','1') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '1' COMMENT '是否固定在 tagsView 栏上，（0是 1否）',
