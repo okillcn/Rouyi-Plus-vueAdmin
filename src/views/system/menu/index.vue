@@ -37,10 +37,7 @@
 					</template>
 				</el-table-column>
 				<el-table-column prop="perms" label="权限标识" show-overflow-tooltip></el-table-column>
-				<el-table-column label="排序" show-overflow-tooltip width="80">
-					<template #default="scope">
-						{{ scope.$index }}
-					</template>
+				<el-table-column prop="orderNum" label="排序" show-overflow-tooltip width="80">
 				</el-table-column>
 				<el-table-column label="类型" show-overflow-tooltip width="80">
 					<template #default="scope">
