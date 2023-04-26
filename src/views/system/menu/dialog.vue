@@ -45,30 +45,22 @@
 								<el-input v-model="state.ruleForm.path" placeholder="目录路径/" clearable></el-input>
 							</el-form-item>
 						</el-col>
-						<!-- <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
-							<el-form-item label="是否固定TagView">
-								<el-radio-group v-model="state.ruleForm.meta.isAffix">
-									<el-radio :label="true">固定</el-radio>
-									<el-radio :label="false">不固定</el-radio>
-								</el-radio-group>
-							</el-form-item>
-						</el-col> -->
 					</template>
 
 					<template v-if="state.ruleForm.menuType === 'C'">
 						<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
-							<el-form-item label="路由名称">
-								<el-input v-model="state.ruleForm.menuName" placeholder="路由中的 name 值" clearable></el-input>
-							</el-form-item>
-						</el-col>
-						<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
-							<el-form-item label="路由路径">
-								<el-input v-model="state.ruleForm.path" placeholder="路由中的 path 值" clearable></el-input>
+							<el-form-item label="路由地址">
+								<el-input v-model="state.ruleForm.path" placeholder="例如：user" clearable></el-input>
 							</el-form-item>
 						</el-col>
 						<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 							<el-form-item label="组件路径">
-								<el-input v-model="state.ruleForm.component" placeholder="组件路径" clearable></el-input>
+								<el-input v-model="state.ruleForm.component" placeholder="组件路径:system/user/index" clearable></el-input>
+							</el-form-item>
+						</el-col>
+						<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+							<el-form-item label="传递参数">
+								<el-input v-model="state.ruleForm.queryParam" placeholder="携带参数" clearable></el-input>
 							</el-form-item>
 						</el-col>
 						<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
@@ -92,16 +84,15 @@
 								</el-radio-group>
 							</el-form-item>
 						</el-col>
-						<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20"
-							v-if="state.ruleForm.isFrame == '0'">
+						<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 							<el-form-item label="内嵌窗口">
-								<el-switch v-model="state.ruleForm.isIframe" inline-prompt active-text="是"
-									inactive-text="否"></el-switch>
+								<el-radio-group v-model="state.ruleForm.isIframe">
+									<el-radio label="0">是</el-radio>
+									<el-radio label="1">否</el-radio>
+								</el-radio-group>
 							</el-form-item>
 						</el-col>
 					</template>
-
-
 
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="菜单状态">
@@ -114,6 +105,14 @@
 							<el-radio-group v-model="state.ruleForm.visible">
 								<el-radio label="0">显示</el-radio>
 								<el-radio label="1">隐藏</el-radio>
+							</el-radio-group>
+						</el-form-item>
+					</el-col>
+					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+						<el-form-item label="TagView">
+							<el-radio-group v-model="state.ruleForm.isAffix">
+								<el-radio label="0">是</el-radio>
+								<el-radio label="1">否</el-radio>
 							</el-radio-group>
 						</el-form-item>
 					</el-col>
@@ -169,8 +168,8 @@ const state = reactive({
 		component: '',// 组件路径
 		queryParam: "",// 请求参数
 		isFrame: "1",// 是否为外链（0是 1否）
-		isAffix: false,
-		isIframe: false,
+		isAffix: '1',// 是否固定标签(0是 1否)
+		isIframe: '1',// 是否内嵌iframe(0是 1否)
 		isCache: "1",// 是否缓存（0缓存 1不缓存）
 		menuType: "M",// 菜单类型（M目录 C菜单 F按钮）
 		visible: "0",// 菜单状态（0显示 1隐藏）
@@ -193,8 +192,8 @@ const state = reactive({
 			component: '',// 组件路径
 			queryParam: "",// 请求参数
 			isFrame: "1",// 是否为外链（0是 1否）
-			isAffix: false,
-			isIframe: false,
+			isAffix: '1',// 是否固定标签(0是 1否)
+			isIframe: '1',// 是否内嵌iframe(0是 1否)
 			isCache: "1",// 是否缓存（0缓存 1不缓存）
 			menuType: "M",// 菜单类型（M目录 C菜单 F按钮）
 			visible: "0",// 菜单状态（0显示 1隐藏）
@@ -348,8 +347,8 @@ const closeDialog = () => {
 		component: '',// 组件路径
 		queryParam: "",// 请求参数
 		isFrame: "1",// 是否为外链（0是 1否）
-		isAffix: false,
-		isIframe: false,
+		isAffix: '1',
+		isIframe: '1',
 		isCache: "1",// 是否缓存（0缓存 1不缓存）
 		menuType: "M",// 菜单类型（M目录 C菜单 F按钮）
 		visible: "0",// 菜单状态（0显示 1隐藏）

@@ -89,12 +89,12 @@ const setSendClassicChildren = (path: string) => {
 };
 // 设置页面当前路由高亮
 const setCurrentRouterHighlight = (currentRoute: RouteToFrom) => {
-	const { path, meta,hidden } = currentRoute;
+	const { path, meta } = currentRoute;
 	if (themeConfig.value.layout === 'classic') {
 		state.defaultActive = `/${path?.split('/')[1]}`;
 	} else {
 		const pathSplit = meta?.isDynamic ? meta.isDynamicPath!.split('/') : path!.split('/');
-		if (pathSplit.length >= 4 && hidden) state.defaultActive = pathSplit.splice(0, 3).join('/');
+		if (pathSplit.length >= 4 && meta?.isHide) state.defaultActive = pathSplit.splice(0, 3).join('/');
 		else state.defaultActive = path;
 	}
 };
@@ -104,12 +104,12 @@ const onALinkClick = (val: RouteItem) => {
 };
 // 页面加载前
 onBeforeMount(() => {
-	setCurrentRouterHighlight(route);
+	setCurrentRouterHighlight(route as any);
 });
 // 路由更新时
 onBeforeRouteUpdate((to) => {
 	// 修复：https://gitee.com/lyt-top/vue-next-admin/issues/I3YX6G
-	setCurrentRouterHighlight(to);
+	setCurrentRouterHighlight(to as any);
 	// 修复经典布局开启切割菜单时，点击tagsView后左侧导航菜单数据不变的问题
 	let { layout, isClassicSplitMenu } = themeConfig.value;
 	if (layout === 'classic' && isClassicSplitMenu) {

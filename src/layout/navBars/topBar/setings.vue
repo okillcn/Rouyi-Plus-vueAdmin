@@ -453,7 +453,7 @@ import mittBus from '/@/utils/mitt';
 // 定义变量内容
 const { locale } = useI18n();
 const storesThemeConfig = useThemeConfig();
-const { themeConfig } = storeToRefs(storesThemeConfig);
+const { themeConfig } = storeToRefs(storesThemeConfig) as any;
 const { copyText } = commonFunction();
 const { getLightColor, getDarkColor } = useChangeColor();
 const state = reactive({
@@ -568,7 +568,7 @@ const onAddFilterChange = (attr: string) => {
 };
 // 4、界面显示 --> 开启开发者模式
 const onIsRequestRoutesChange = () => {
-	themeConfig.value.isRequestRoutes = getThemeConfig.value.isRequestRoutes ? true : false;
+	themeConfig.value.isRequestRoutes = themeConfig.value.isRequestRoutes ? true : false;
 	setLocalThemeConfig();
 };
 // 4、界面显示 --> 深色模式
