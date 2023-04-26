@@ -37,9 +37,9 @@ declare type RouteItem<T = any> = {
 	k?: T;
 	meta?: {
 		title?: string;
-		isLink?: string;
+		link?: string;
 		isHide?: boolean;
-		isKeepAlive?: boolean;
+		noCache?: boolean;
 		isAffix?: boolean;
 		isIframe?: boolean;
 		roles?: string[];

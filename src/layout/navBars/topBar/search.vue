@@ -86,7 +86,7 @@ const initTageView = () => {
 // 当前菜单选中时
 const onHandleSelect = (item: RouteItem) => {
 	let { path, redirect } = item;
-	if (item.meta?.isLink && !item.meta?.isIframe) window.open(item.meta?.isLink);
+	if (item.meta?.link && !item.meta?.isIframe) window.open(item.meta?.link);
 	else if (redirect) router.push(redirect);
 	else router.push(path);
 	closeSearch();

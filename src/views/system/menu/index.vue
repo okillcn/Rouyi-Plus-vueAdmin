@@ -2,12 +2,18 @@
 	<div class="system-menu-container layout-pd">
 		<el-card shadow="hover">
 			<div class="system-menu-search mb15">
-				<el-input size="default" placeholder="请输入菜单名称" style="max-width: 180px"> </el-input>
-				<el-button size="default" type="primary" class="mt10">
+				<el-input size="default" placeholder="请输入菜单名称" style="max-width: 180px" v-model="state.param.menuName"> </el-input>
+				<el-button size="default" type="primary" class="mt10" @click="getTableData">
 					<el-icon>
 						<ele-Search />
 					</el-icon>
 					查询
+				</el-button>
+				<el-button size="default" class="mt10" type="info" @click="resetParamData()">
+					<el-icon>
+						<ele-Refresh />
+					</el-icon>
+					重置
 				</el-button>
 				<el-button size="default" type="success" class="mt10" @click="onOpenAddMenu">
 					<el-icon>
@@ -123,6 +129,15 @@ const onTabelRowDel = async (row: RowMenuType) => {
   } catch (error) {
     return Promise.reject(error);
   }
+};
+/**
+ * 重置表格数据
+ */
+ const resetParamData = () => {
+	state.param = {
+		menuName: '',
+	};
+	getTableData();
 };
 // 页面加载时
 onMounted(() => {

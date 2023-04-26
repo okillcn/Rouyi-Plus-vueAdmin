@@ -216,7 +216,7 @@ const addTagsView = (path: string, to?: RouteToFrom) => {
 			item = state.tagsViewRoutesList.find((v: RouteItem) => v.path === path);
 		}
 		if (!item) return false;
-		if (item?.meta?.isLink && !item.meta.isIframe) return false;
+		if (item?.meta?.link && !item.meta.isIframe) return false;
 		if (to?.meta?.isDynamic) item.params = to?.params ? to?.params : route.params;
 		else item.query = to?.query ? to?.query : route.query;
 		item.url = setTagsViewHighlight(item);
@@ -240,7 +240,7 @@ const refreshCurrentTagsView = async (fullPath: string) => {
 	if (!item) return false;
 	await storesKeepALiveNames.delCachedView(item);
 	mittBus.emit('onTagsViewRefreshRouterView', fullPath);
-	if (item.meta?.isKeepAlive) storesKeepALiveNames.addCachedView(item);
+	if (item.meta?.noCache) storesKeepALiveNames.addCachedView(item);
 };
 // 3、关闭当前 tagsView：如果是设置了固定的（isAffix），不可以关闭
 const closeCurrentTagsView = (path: string) => {

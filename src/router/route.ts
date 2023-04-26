@@ -6,12 +6,12 @@ import { RouteRecordRaw } from 'vue-router';
  * 路由meta对象参数说明
  * meta: {
  *      title:          菜单栏及 tagsView 栏、菜单搜索名称（国际化）
- *      isLink：        是否超链接菜单，开启外链条件，`1、isLink: 链接地址不为空 2、isIframe:false`
+ *      link：        	是否超链接菜单，开启外链条件，`1、link: 链接地址不为空 2、isIframe:false`
  *      isHide：        是否隐藏此路由
- *      isKeepAlive：   是否缓存组件状态
- *      isAffix：       是否固定在 tagsView 栏上
- *      isIframe：      是否内嵌窗口，开启条件，`1、isIframe:true 2、isLink：链接地址不为空`
- *      roles：         当前路由权限标识，取角色管理。控制路由显示、隐藏。超级管理员：admin 普通角色：common
+ *      noCache：       是否缓存组件状态
+ *      isAffix：       是否固定在 tagsView 栏上，默认 false
+ *      isIframe：      是否内嵌窗口，开启条件，`1、isIframe:true 2、link：链接地址不为空`
+ *      roles：         当前路由权限标识，取角色管理。若为空数组则无权限控制
  *      icon：          菜单、tagsView 图标，阿里：加 `iconfont xxx`，fontawesome：加 `fa xxx`
  * }
  */
@@ -20,9 +20,9 @@ import { RouteRecordRaw } from 'vue-router';
 declare module 'vue-router' {
 	interface RouteMeta {
 		title?: string;
-		isLink?: string | null;
+		link?: string | null;
 		isHide?: boolean;
-		isKeepAlive?: boolean;
+		noCache?: boolean;
 		isAffix?: boolean;
 		isIframe?: boolean;
 		roles?: string[];
@@ -44,7 +44,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 		component: () => import('/@/layout/index.vue'),
 		redirect: '/home',
 		meta: {
-			isKeepAlive: true,
+			noCache: true,
 		},
 		children: [
 			{
@@ -53,9 +53,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 				component: () => import('/@/views/home/index.vue'),
 				meta: {
 					title: 'message.router.home',
-					isLink: '',// 超链接菜单
+					link: '',// 超链接菜单
 					isHide: false,// 是否隐藏
-					isKeepAlive: true,// 是否缓存组件状态
+					noCache: true,// 是否缓存组件状态
 					isAffix: false,// 是否固定在 tagsView 栏上
 					isIframe: false,// 是否内嵌窗口
 					roles: ['admin', 'common'],
@@ -69,9 +69,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 				redirect: '/system/menu',
 				meta: {
 					title: 'message.router.system',
-					isLink: '',
+					link: '',
 					isHide: false,
-					isKeepAlive: true,
+					noCache: true,
 					isAffix: false,
 					isIframe: false,
 					roles: ['admin'],
@@ -84,9 +84,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/system/menu/index.vue'),
 						meta: {
 							title: 'message.router.systemMenu',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin'],
@@ -99,9 +99,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/system/role/index.vue'),
 						meta: {
 							title: 'message.router.systemRole',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin'],
@@ -114,9 +114,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/system/user/index.vue'),
 						meta: {
 							title: 'message.router.systemUser',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin'],
@@ -129,9 +129,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 					// 	component: () => import('/@/views/system/dept/index.vue'),
 					// 	meta: {
 					// 		title: 'message.router.systemDept',
-					// 		isLink: '',
+					// 		link: '',
 					// 		isHide: false,
-					// 		isKeepAlive: true,
+					// 		noCache: true,
 					// 		isAffix: false,
 					// 		isIframe: false,
 					// 		roles: ['admin'],
@@ -144,9 +144,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/system/dic/index.vue'),
 						meta: {
 							title: 'message.router.systemDic',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin'],
@@ -162,9 +162,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 				redirect: '/limits/frontEnd',
 				meta: {
 					title: 'message.router.limits',
-					isLink: '',
+					link: '',
 					isHide: false,
-					isKeepAlive: true,
+					noCache: true,
 					isAffix: false,
 					isIframe: false,
 					roles: ['admin', 'common'],
@@ -178,9 +178,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						redirect: '/limits/frontEnd/page',
 						meta: {
 							title: 'message.router.limitsFrontEnd',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -193,9 +193,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 								component: () => import('/@/views/limits/frontEnd/page/index.vue'),
 								meta: {
 									title: 'message.router.limitsFrontEndPage',
-									isLink: '',
+									link: '',
 									isHide: false,
-									isKeepAlive: true,
+									noCache: true,
 									isAffix: false,
 									isIframe: false,
 									roles: ['admin', 'common'],
@@ -208,9 +208,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 								component: () => import('/@/views/limits/frontEnd/btn/index.vue'),
 								meta: {
 									title: 'message.router.limitsFrontEndBtn',
-									isLink: '',
+									link: '',
 									isHide: false,
-									isKeepAlive: true,
+									noCache: true,
 									isAffix: false,
 									isIframe: false,
 									roles: ['admin', 'common'],
@@ -225,9 +225,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/layout/routerView/parent.vue'),
 						meta: {
 							title: 'message.router.limitsBackEnd',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -240,9 +240,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 								component: () => import('/@/views/limits/backEnd/page/index.vue'),
 								meta: {
 									title: 'message.router.limitsBackEndEndPage',
-									isLink: '',
+									link: '',
 									isHide: false,
-									isKeepAlive: true,
+									noCache: true,
 									isAffix: false,
 									isIframe: false,
 									roles: ['admin', 'common'],
@@ -260,9 +260,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 				redirect: '/menu/menu1',
 				meta: {
 					title: 'message.router.menu',
-					isLink: '',
+					link: '',
 					isHide: false,
-					isKeepAlive: true,
+					noCache: true,
 					isAffix: false,
 					isIframe: false,
 					roles: ['admin', 'common'],
@@ -276,9 +276,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						redirect: '/menu/menu1/menu11',
 						meta: {
 							title: 'message.router.menu1',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -291,9 +291,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 								component: () => import('/@/views/menu/menu1/menu11/index.vue'),
 								meta: {
 									title: 'message.router.menu11',
-									isLink: '',
+									link: '',
 									isHide: false,
-									isKeepAlive: true,
+									noCache: true,
 									isAffix: false,
 									isIframe: false,
 									roles: ['admin', 'common'],
@@ -307,9 +307,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 								redirect: '/menu/menu1/menu12/menu121',
 								meta: {
 									title: 'message.router.menu12',
-									isLink: '',
+									link: '',
 									isHide: false,
-									isKeepAlive: true,
+									noCache: true,
 									isAffix: false,
 									isIframe: false,
 									roles: ['admin', 'common'],
@@ -322,9 +322,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 										component: () => import('/@/views/menu/menu1/menu12/menu121/index.vue'),
 										meta: {
 											title: 'message.router.menu121',
-											isLink: '',
+											link: '',
 											isHide: false,
-											isKeepAlive: true,
+											noCache: true,
 											isAffix: false,
 											isIframe: false,
 											roles: ['admin', 'common'],
@@ -337,9 +337,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 										component: () => import('/@/views/menu/menu1/menu12/menu122/index.vue'),
 										meta: {
 											title: 'message.router.menu122',
-											isLink: '',
+											link: '',
 											isHide: false,
-											isKeepAlive: true,
+											noCache: true,
 											isAffix: false,
 											isIframe: false,
 											roles: ['admin', 'common'],
@@ -354,9 +354,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 								component: () => import('/@/views/menu/menu1/menu13/index.vue'),
 								meta: {
 									title: 'message.router.menu13',
-									isLink: '',
+									link: '',
 									isHide: false,
-									isKeepAlive: true,
+									noCache: true,
 									isAffix: false,
 									isIframe: false,
 									roles: ['admin', 'common'],
@@ -371,9 +371,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/menu/menu2/index.vue'),
 						meta: {
 							title: 'message.router.menu2',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -389,9 +389,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 				redirect: '/fun/tagsView',
 				meta: {
 					title: 'message.router.funIndex',
-					isLink: '',
+					link: '',
 					isHide: false,
-					isKeepAlive: true,
+					noCache: true,
 					isAffix: false,
 					isIframe: false,
 					roles: ['admin', 'common'],
@@ -404,9 +404,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/fun/tagsView/index.vue'),
 						meta: {
 							title: 'message.router.funTagsView',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -419,9 +419,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/fun/countup/index.vue'),
 						meta: {
 							title: 'message.router.funCountup',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -434,9 +434,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/fun/wangEditor/index.vue'),
 						meta: {
 							title: 'message.router.funWangEditor',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -449,9 +449,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/fun/cropper/index.vue'),
 						meta: {
 							title: 'message.router.funCropper',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -464,9 +464,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/fun/qrcode/index.vue'),
 						meta: {
 							title: 'message.router.funQrcode',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -479,9 +479,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/fun/echartsMap/index.vue'),
 						meta: {
 							title: 'message.router.funEchartsMap',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -494,9 +494,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/fun/printJs/index.vue'),
 						meta: {
 							title: 'message.router.funPrintJs',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -509,9 +509,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/fun/clipboard/index.vue'),
 						meta: {
 							title: 'message.router.funClipboard',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -524,9 +524,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/fun/gridLayout/index.vue'),
 						meta: {
 							title: 'message.router.funGridLayout',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -539,9 +539,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/fun/splitpanes/index.vue'),
 						meta: {
 							title: 'message.router.funSplitpanes',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -557,9 +557,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 				redirect: '/pages/filtering',
 				meta: {
 					title: 'message.router.pagesIndex',
-					isLink: '',
+					link: '',
 					isHide: false,
-					isKeepAlive: true,
+					noCache: true,
 					isAffix: false,
 					isIframe: false,
 					roles: ['admin', 'common'],
@@ -572,9 +572,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/pages/filtering/index.vue'),
 						meta: {
 							title: 'message.router.pagesFiltering',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -593,9 +593,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 								component: () => import('/@/views/pages/filtering/details.vue'),
 								meta: {
 									title: 'message.router.pagesFilteringDetails',
-									isLink: '',
+									link: '',
 									isHide: true,
-									isKeepAlive: false,
+									noCache: false,
 									isAffix: false,
 									isIframe: false,
 									roles: ['admin', 'common'],
@@ -610,9 +610,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/pages/filtering/details1.vue'),
 						meta: {
 							title: 'message.router.pagesFilteringDetails1',
-							isLink: '',
+							link: '',
 							isHide: true,
-							isKeepAlive: false,
+							noCache: false,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -625,9 +625,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/pages/iocnfont/index.vue'),
 						meta: {
 							title: 'message.router.pagesIocnfont',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -640,9 +640,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/pages/element/index.vue'),
 						meta: {
 							title: 'message.router.pagesElement',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -655,9 +655,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/pages/awesome/index.vue'),
 						meta: {
 							title: 'message.router.pagesAwesome',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -670,9 +670,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/pages/formAdapt/index.vue'),
 						meta: {
 							title: 'message.router.pagesFormAdapt',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -685,9 +685,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/pages/tableRules/index.vue'),
 						meta: {
 							title: 'message.router.pagesTableRules',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -700,9 +700,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/pages/formI18n/index.vue'),
 						meta: {
 							title: 'message.router.pagesFormI18n',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -715,9 +715,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/pages/formRules/index.vue'),
 						meta: {
 							title: 'message.router.pagesFormRules',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -730,9 +730,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/pages/listAdapt/index.vue'),
 						meta: {
 							title: 'message.router.pagesListAdapt',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -745,9 +745,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/pages/waterfall/index.vue'),
 						meta: {
 							title: 'message.router.pagesWaterfall',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -760,9 +760,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/pages/steps/index.vue'),
 						meta: {
 							title: 'message.router.pagesSteps',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -775,9 +775,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/pages/preview/index.vue'),
 						meta: {
 							title: 'message.router.pagesPreview',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -790,9 +790,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/pages/waves/index.vue'),
 						meta: {
 							title: 'message.router.pagesWaves',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -805,9 +805,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/pages/tree/index.vue'),
 						meta: {
 							title: 'message.router.pagesTree',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -820,9 +820,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/pages/drag/index.vue'),
 						meta: {
 							title: 'message.router.pagesDrag',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -835,9 +835,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/pages/lazyImg/index.vue'),
 						meta: {
 							title: 'message.router.pagesLazyImg',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin'],
@@ -850,9 +850,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/pages/dynamicForm/index.vue'),
 						meta: {
 							title: 'message.router.pagesDynamicForm',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin'],
@@ -865,9 +865,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/pages/workflow/index.vue'),
 						meta: {
 							title: 'message.router.pagesWorkflow',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin'],
@@ -883,9 +883,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 				redirect: '/make/selector',
 				meta: {
 					title: 'message.router.makeIndex',
-					isLink: '',
+					link: '',
 					isHide: false,
-					isKeepAlive: true,
+					noCache: true,
 					isAffix: false,
 					isIframe: false,
 					roles: ['admin'],
@@ -898,9 +898,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/make/selector/index.vue'),
 						meta: {
 							title: 'message.router.makeSelector',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -913,9 +913,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/make/noticeBar/index.vue'),
 						meta: {
 							title: 'message.router.makeNoticeBar',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -928,9 +928,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/make/svgDemo/index.vue'),
 						meta: {
 							title: 'message.router.makeSvgDemo',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -943,9 +943,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/make/tableDemo/index.vue'),
 						meta: {
 							title: 'message.router.makeTableDemo',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin', 'common'],
@@ -961,9 +961,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 				redirect: '/params/common',
 				meta: {
 					title: 'message.router.paramsIndex',
-					isLink: '',
+					link: '',
 					isHide: false,
-					isKeepAlive: true,
+					noCache: true,
 					isAffix: false,
 					isIframe: false,
 					roles: ['admin'],
@@ -976,9 +976,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/params/common/index.vue'),
 						meta: {
 							title: 'message.router.paramsCommon',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin'],
@@ -991,9 +991,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/params/common/details.vue'),
 						meta: {
 							title: 'message.router.paramsCommonDetails',
-							isLink: '',
+							link: '',
 							isHide: true,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin'],
@@ -1006,9 +1006,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/params/dynamic/index.vue'),
 						meta: {
 							title: 'message.router.paramsDynamic',
-							isLink: '',
+							link: '',
 							isHide: false,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin'],
@@ -1025,9 +1025,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/views/params/dynamic/details.vue'),
 						meta: {
 							title: 'message.router.paramsDynamicDetails',
-							isLink: '',
+							link: '',
 							isHide: true,
-							isKeepAlive: true,
+							noCache: true,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin'],
@@ -1043,9 +1043,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 				redirect: '/visualizing/visualizingLinkDemo1',
 				meta: {
 					title: 'message.router.visualizingIndex',
-					isLink: '',
+					link: '',
 					isHide: false,
-					isKeepAlive: true,
+					noCache: true,
 					isAffix: false,
 					isIframe: false,
 					roles: ['admin'],
@@ -1054,7 +1054,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 				/**
 				 * 打开内置全屏
 				 * component 都为 `() => import('/@/layout/routerView/link.vue')`
-				 * isLink 链接为内置的路由地址，地址为 staticRoutes 中定义
+				 * link 链接为内置的路由地址，地址为 staticRoutes 中定义
 				 */
 				children: [
 					{
@@ -1063,9 +1063,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/layout/routerView/link.vue'),
 						meta: {
 							title: 'message.router.visualizingLinkDemo1',
-							isLink: '/visualizingDemo1',
+							link: '/visualizingDemo1',
 							isHide: false,
-							isKeepAlive: false,
+							noCache: false,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin'],
@@ -1078,9 +1078,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						component: () => import('/@/layout/routerView/link.vue'),
 						meta: {
 							title: 'message.router.visualizingLinkDemo2',
-							isLink: '/visualizingDemo2',
+							link: '/visualizingDemo2',
 							isHide: false,
-							isKeepAlive: false,
+							noCache: false,
 							isAffix: false,
 							isIframe: false,
 							roles: ['admin'],
@@ -1095,9 +1095,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 				component: () => import('/@/views/chart/index.vue'),
 				meta: {
 					title: 'message.router.chartIndex',
-					isLink: '',
+					link: '',
 					isHide: false,
-					isKeepAlive: true,
+					noCache: true,
 					isAffix: false,
 					isIframe: false,
 					roles: ['admin', 'common'],
@@ -1110,9 +1110,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 				component: () => import('/@/views/personal/index.vue'),
 				meta: {
 					title: 'message.router.personal',
-					isLink: '',
+					link: '',
 					isHide: false,
-					isKeepAlive: true,
+					noCache: true,
 					isAffix: false,
 					isIframe: false,
 					roles: ['admin', 'common'],
@@ -1125,9 +1125,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 				component: () => import('/@/views/tools/index.vue'),
 				meta: {
 					title: 'message.router.tools',
-					isLink: '',
+					link: '',
 					isHide: false,
-					isKeepAlive: true,
+					noCache: true,
 					isAffix: false,
 					isIframe: false,
 					roles: ['admin', 'common'],
@@ -1140,9 +1140,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 				component: () => import('/@/layout/routerView/link.vue'),
 				meta: {
 					title: 'message.router.layoutLinkView',
-					isLink: 'https://element-plus.gitee.io/#/zh-CN/component/installation',
+					link: 'https://element-plus.gitee.io/#/zh-CN/component/installation',
 					isHide: false,
-					isKeepAlive: false,
+					noCache: false,
 					isAffix: false,
 					isIframe: false,
 					roles: ['admin'],
@@ -1155,9 +1155,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 				component: () => import('/@/layout/routerView/iframes.vue'),
 				meta: {
 					title: 'message.router.layoutIframeViewOne',
-					isLink: 'https://nodejs.org/zh-cn/',
+					link: 'https://nodejs.org/zh-cn/',
 					isHide: false,
-					isKeepAlive: true,
+					noCache: true,
 					isAffix: true,
 					isIframe: true,
 					roles: ['admin'],
@@ -1170,9 +1170,9 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 				component: () => import('/@/layout/routerView/iframes.vue'),
 				meta: {
 					title: 'message.router.layoutIframeViewTwo',
-					isLink: 'https://undraw.co/illustrations',
+					link: 'https://undraw.co/illustrations',
 					isHide: false,
-					isKeepAlive: true,
+					noCache: true,
 					isAffix: true,
 					isIframe: true,
 					roles: ['admin'],
@@ -1228,9 +1228,9 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 		component: () => import('/@/views/tools/test.vue'),
 		meta: {
 			title: 'message.router.tools',
-			isLink: '',
+			link: '',
 			isHide: false,
-			isKeepAlive: true,
+			noCache: true,
 			isAffix: false,
 			isIframe: false,
 			roles: ['admin', 'common'],

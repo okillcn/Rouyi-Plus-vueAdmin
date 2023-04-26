@@ -179,6 +179,8 @@ declare type RowMenuType<T = any> = {
 	component: string;
 	queryParam: string;
 	isFrame: string;
+	isAffix:boolean,
+	isIframe:boolean,
 	isCache: string;
 	menuType: string;
 	visible: string;

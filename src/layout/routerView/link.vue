@@ -22,21 +22,21 @@ import { verifyUrl } from '/@/utils/toolsValidate';
 const route = useRoute();
 const state = reactive<LinkViewState>({
 	title: '',
-	isLink: '',
+	link: '',
 });
 
 // 立即前往
 const onGotoFullPage = () => {
 	const { origin, pathname } = window.location;
-	if (verifyUrl(<string>state.isLink)) window.open(state.isLink);
-	else window.open(`${origin}${pathname}#${state.isLink}`);
+	if (verifyUrl(<string>state.link)) window.open(state.link);
+	else window.open(`${origin}${pathname}#${state.link}`);
 };
 // 监听路由的变化，设置内容
 watch(
 	() => route.path,
 	() => {
 		state.title = <string>route.meta.title;
-		state.isLink = <string>route.meta.link;
+		state.link = <string>route.meta.link;
 	},
 	{
 		immediate: true,
