@@ -4,7 +4,7 @@ import { useUserInfo } from '/@/stores/userInfo';
 import { useRequestOldRoutes } from '/@/stores/requestOldRoutes';
 import { Session } from '/@/utils/storage';
 import { NextLoading } from '/@/utils/loading';
-import { dynamicRoutes, notFoundAndNoPower } from '/@/router/route';
+import { compontentRoutes, dynamicRoutes, notFoundAndNoPower } from '/@/router/route';
 import { formatTwoStageRoutes, formatFlatteningRoutes, router } from '/@/router/index';
 import { useRoutesList } from '/@/stores/routesList';
 import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes';
@@ -83,7 +83,7 @@ export function setFilterRouteEnd() {
 	let filterRouteEnd: any = formatTwoStageRoutes(formatFlatteningRoutes(dynamicRoutes));
 	// notFoundAndNoPower 防止 404、401 不在 layout 布局中，不设置的话，404、401 界面将全屏显示
 	// 关联问题 No match found for location with path 'xxx'
-	filterRouteEnd[0].children = [...filterRouteEnd[0].children, ...notFoundAndNoPower];
+	filterRouteEnd[0].children = [...filterRouteEnd[0].children, ...notFoundAndNoPower, ...compontentRoutes];
 	return filterRouteEnd;
 }
 
@@ -105,7 +105,7 @@ export async function setAddRoute() {
  * @returns 返回后端路由菜单数据
  */
 export function getBackEndControlRoutes() {
- return menuApi.getRouterMenu().then((res: any) => {
+	return menuApi.getRouterMenu().then((res: any) => {
 		if (res.code === 200) {
 			return res;
 		} else {
@@ -120,6 +120,7 @@ export function getBackEndControlRoutes() {
  * @description 路径：/src/views/system/menu/component/addMenu.vue
  */
 export async function setBackEndControlRefreshRoutes() {
+	Session.remove('tagsViewList');//清除缓存的tagsViewList
 	await getBackEndControlRoutes();
 }
 
@@ -131,10 +132,21 @@ export async function setBackEndControlRefreshRoutes() {
 export function backEndComponent(routes: any) {
 	if (!routes) return;
 	return routes.map((item: any) => {
+		//如果后端返回的路由path包含http/https 并且meta.isIframe为true，则path改为iframe否则为link
+		if (item.path.includes('http') && item.meta.isIframe) {
+			item.path = '/iframes'+item.meta.title
+			item.name = 'iframes'+item.meta.title
+			item.component = '/layout/routerView/iframes.vue'
+		} else if (item.path.includes('http') && !item.meta.isIframe) {
+			item.path = '/link'+item.meta.title
+			item.name = 'link'+item.meta.title
+			item.component = '/layout/routerView/link.vue'
+		}
 		if (item.component) item.component = dynamicImport(dynamicViewsModules, item.component as string);
 		item.children && backEndComponent(item.children);
 		return item;
 	});
+
 }
 
 /**

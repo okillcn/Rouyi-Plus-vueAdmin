@@ -12,11 +12,11 @@
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="角色标识">
 							<template #label>
-								<el-tooltip effect="dark" content="用于 `router/route.ts` meta.roles" placement="top-start">
-									<span>角色标识</span>
+								<el-tooltip effect="dark" content="控制器中定义的权限字符，如：@PreAuthorize(`@ss.hasRole('admin')`)" placement="top-start">
+									<span>权限字符</span>
 								</el-tooltip>
 							</template>
-							<el-input v-model="state.ruleForm.roleKey" placeholder="请输入角色标识" clearable></el-input>
+							<el-input v-model="state.ruleForm.roleKey" placeholder="请输入权限字符" clearable></el-input>
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
@@ -184,6 +184,7 @@ const handleCheckedTreeNodeAll = (checked: boolean, refName: string) => {
 	}
 };
 
+
 /**
  * 打开弹窗
  * @param type
@@ -207,13 +208,35 @@ const openDialog = (type: string, row: RowRoleType) => {
 	state.dialog.isShowDialog = true;
 };
 
+/**
+ * 获取菜单选中的数据
+ * @returns
+ */
+const getMenuAllCheckedKeys = () => {
+	// 目前被选中的菜单节点
+	let checkedKeys = menuTreeRef.value?.getCheckedKeys() || [];
+	// 半选中的菜单节点
+	let halfCheckedKeys = menuTreeRef.value?.getHalfCheckedKeys() || [];
+	checkedKeys.unshift.apply(checkedKeys, halfCheckedKeys);
+	return checkedKeys;
+}
+/**
+ * 获取部门菜单选中的数据
+ * @returns
+ */
+const getDeptAllCheckedKeys = () => {
+	let checkedKeys = deptTfeeRef.value?.getCheckedKeys() || [];
+	let halfCheckedKeys = deptTfeeRef.value?.getHalfCheckedKeys() || [];
+	checkedKeys.unshift.apply(checkedKeys, halfCheckedKeys);
+	return checkedKeys;
+}
 
 /**
  * 提交表单
  */
 const onSubmit = async () => {
-	const menuIds = menuTreeRef.value?.getCheckedKeys() || [];
-	const deptIds = deptTfeeRef.value?.getCheckedKeys() || [];
+	const menuIds = getMenuAllCheckedKeys();
+	const deptIds = getDeptAllCheckedKeys();
 	const ruleForm = { ...state.ruleForm, menuIds, deptIds };
 	try {
 		if (state.dialog.type === 'edit') {

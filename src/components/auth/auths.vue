@@ -1,5 +1,5 @@
 <template>
-	<slot v-if="getUserAuthBtnList" />
+	<slot v-if="getUserpermissions" />
 </template>
 
 <script setup lang="ts" name="auths">
@@ -20,9 +20,9 @@ const stores = useUserInfo();
 const { userInfos } = storeToRefs(stores);
 
 // 获取 pinia 中的用户权限
-const getUserAuthBtnList = computed(() => {
+const getUserpermissions = computed(() => {
 	let flag = false;
-	userInfos.value.authBtnList.map((val: string) => {
+	userInfos.value.permissions.map((val: string) => {
 		props.value.map((v) => {
 			if (val === v) flag = true;
 		});

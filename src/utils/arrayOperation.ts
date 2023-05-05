@@ -29,7 +29,7 @@ export function isObjectValueEqual<T>(a: T, b: T): boolean {
 	let bProps = Object.getOwnPropertyNames(b);
 	if (aProps.length != bProps.length) return false;
 	for (let i = 0; i < aProps.length; i++) {
-		let propName = aProps[i];
+		let propName = aProps[i] as keyof T;
 		let propA = a[propName];
 		let propB = b[propName];
 		if (!b.hasOwnProperty(propName)) return false;
@@ -48,7 +48,7 @@ export function isObjectValueEqual<T>(a: T, b: T): boolean {
  * @param attr 需要去重的键值（数组对象）
  * @returns
  */
-export function removeDuplicate(arr: EmptyArrayType, attr?: string) {
+export function removeDuplicate(arr: EmptyArrayType, attr?: any) {
 	if (!Object.keys(arr).length) {
 		return arr;
 	} else {

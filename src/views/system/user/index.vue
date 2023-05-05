@@ -5,51 +5,72 @@
 				<el-row :gutter="20">
 					<el-col :span="24">
 						<el-input size="default" placeholder="名称查询" v-model="state.tableData.param.userName"
-							class="mt10"></el-input>
+							v-auth="'system:user:query'" class="mt10"></el-input>
 						<el-input size="default" placeholder="手机号查询" v-model="state.tableData.param.phonenumber"
-							class="mt10"></el-input>
-						<el-select size="default" placeholder="状态查询" v-model="state.tableData.param.status" class="mt10">
+							v-auth="'system:user:query'" class="mt10"></el-input>
+						<el-select size="default" placeholder="状态查询" v-model="state.tableData.param.status" class="mt10"
+							v-auth="'system:user:query'">
 							<el-option label="启用" value="0"></el-option>
 							<el-option label="禁用" value="1"></el-option>
 						</el-select>
-						<el-form-item size="default" class="mt10" style="display: inline-block;">
+						<el-form-item size="default" class="mt10" style="display: inline-block;"
+							v-auth="'system:user:query'">
 							<el-cascader size="default" :options="state.DeptData" :props="{
-									checkStrictly: true,
-									value: 'id',
-									label: 'label',
-									children: 'children',
-									leaf: 'leaf'
-								}" filterable placeholder="部门查询" clearable v-model="state.tableData.param.deptId"
-								@change="handleCascadeChange">
+								checkStrictly: true,
+								value: 'id',
+								label: 'label',
+								children: 'children',
+								leaf: 'leaf'
+							}" filterable placeholder="部门查询" clearable v-model="state.tableData.param.deptId" @change="handleCascadeChange">
 								<template #default="{ node, data }">
 									<span>{{ data.label }}</span>
 									<span v-if="!node.isLeaf"></span>
 								</template>
 							</el-cascader>
 						</el-form-item>
-						<el-button size="default" class="mt10" type="primary" @click="getTableData()">
-							<el-icon>
-								<ele-Search />
-							</el-icon>
-							搜索
-						</el-button>
-						<el-button size="default" class="mt10" type="info" @click="resetParamData()">
+						<el-button size="default" class="mt10" type="info" plain @click="resetParamData()"
+							v-auth="'system:user:query'">
 							<el-icon>
 								<ele-Refresh />
 							</el-icon>
 							重置
 						</el-button>
-						<el-button size="default" class="mt10" type="success" @click="onOpenAddUser('add')">
+						<el-button size="default" class="mt10" type="primary" plain v-auth="'system:user:query'"
+							@click="getTableData()">
+							<el-icon>
+								<ele-Search />
+							</el-icon>
+							搜索
+						</el-button>
+					</el-col>
+					<el-col :span="24">
+						<el-button size="default" class="mt10" type="success" plain v-auth="'system:user:add'"
+							@click="onOpenAddUser('add')">
 							<el-icon>
 								<ele-FolderAdd />
 							</el-icon>
 							新增用户
 						</el-button>
-						<el-button size="default" class="mt10" type="danger" @click="onBatchDel(state.tableData.data)">
+						<el-button size="default" class="mt10" type="danger" plain v-auth="'system:user:remove'"
+							@click="onBatchDel(state.tableData.data)">
 							<el-icon>
 								<ele-Delete />
 							</el-icon>
 							批量删除
+						</el-button>
+						<el-button size="default" class="mt10" type="warning" plain v-auth="'system:user:import'"
+							@click="state.upload.open = true">
+							<el-icon>
+								<ele-DocumentAdd />
+							</el-icon>
+							导入
+						</el-button>
+						<el-button size="default" class="mt10" type="primary" plain v-auth="'system:user:export'"
+							@click="handleExport">
+							<el-icon>
+								<ele-Upload />
+							</el-icon>
+							导出
 						</el-button>
 					</el-col>
 				</el-row>
@@ -77,21 +98,22 @@
 				<el-table-column prop="dept.deptName" label="部门" width="120" show-overflow-tooltip></el-table-column>
 				<el-table-column prop="phonenumber" label="手机号" width="120" show-overflow-tooltip></el-table-column>
 				<el-table-column prop="email" label="邮箱" width="120" show-overflow-tooltip></el-table-column>
-				<el-table-column prop="status" label="用户状态"  width="65" show-overflow-tooltip>
+				<el-table-column prop="status" label="用户状态" width="65" show-overflow-tooltip>
 					<template #default="scope">
 						<el-tag :type="scope.row.status === '0' ? 'success' : 'info'" active-value="0" inactive-value="1">
 							{{ scope.row.status === '0' ? '启用' : '禁用' }}
 						</el-tag>
 					</template>
 				</el-table-column>
-				<el-table-column prop="loginIp" label="登录IP"  width="120" show-overflow-tooltip></el-table-column>
-				<el-table-column prop="createTime" label="创建时间"  width="120" show-overflow-tooltip sortable></el-table-column>
+				<el-table-column prop="loginIp" label="登录IP" width="120" show-overflow-tooltip></el-table-column>
+				<el-table-column prop="createTime" label="创建时间" width="120" show-overflow-tooltip
+					sortable></el-table-column>
 				<el-table-column label="操作" width="100" fixed="right">
 					<template #default="scope">
 						<el-button :disabled="scope.row.admin" size="small" text type="primary"
 							@click="onOpenEditUser('edit', scope.row)">修改</el-button>
-						<el-button :disabled="scope.row.admin" size="small" text type="primary"
-							@click="onRowDel(scope.row)">删除</el-button>
+						<el-button :disabled="scope.row.admin" size="small" text type="primary" @click="onRowDel(scope.row)"
+							v-auth="'system:user:remove'">删除</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -101,6 +123,35 @@
 				:total="state.tableData.total">
 			</el-pagination>
 		</el-card>
+		<!-- 用户导入对话框 -->
+		<el-dialog :title="state.upload.title" v-model="state.upload.open" width="80%" append-to-body>
+			<el-upload ref="uploadRef" :limit="1" accept=".xlsx, .xls" :headers="state.upload.headers"
+				:action="state.upload.url + '?updateSupport=' + state.upload.updateSupport"
+				:disabled="state.upload.isUploading" :on-progress="handleFileUploadProgress" :on-success="handleFileSuccess"
+				:auto-upload="false" drag>
+				<i class="el-icon-upload"></i>
+				<el-icon size="128"><ele-UploadFilled /></el-icon>
+				<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+				<template v-slot:tip>
+					<div class="el-upload__tip text-center">
+						<div class="el-upload__tip">
+							<p>
+								<el-checkbox v-model="state.upload.updateSupport" />
+								<span>是否更新已经存在的用户数据</span>
+								<el-link type="primary" :underline="false" @click="importTemplate">下载模板</el-link>
+							</p>
+						</div>
+						<p><el-icon><ele-WarningFilled /></el-icon><span>仅允许导入xls、xlsx格式文件</span></p>
+					</div>
+				</template>
+			</el-upload>
+			<template #footer>
+				<span class="dialog-footer">
+					<el-button @click="closeUploadDialog" size="default">取 消</el-button>
+					<el-button type="primary" @click="submitFileForm" size="default">确认</el-button>
+				</span>
+			</template>
+		</el-dialog>
 		<UserDialog ref="userDialogRef" @refresh="getTableData()" />
 	</div>
 </template>
@@ -109,12 +160,18 @@
 import { defineAsyncComponent, reactive, onMounted, ref } from 'vue';
 import { ElMessageBox, ElMessage, ElTable } from 'element-plus';
 import { useUser } from '/@/api/system/user';
+import { Session } from '/@/utils/storage'
+import { download } from '/@/utils/tool'
+import type { UploadInstance } from 'element-plus'
 
 // 引入组件
 const UserDialog = defineAsyncComponent(() => import('/@/views/system/user/dialog.vue'));
+
+// 定义变量内容
 const multipleTableRef = ref<InstanceType<typeof ElTable>>()
 const multipleSelection = ref<RowUserType[]>([])
-// 定义变量内容
+
+const uploadRef = ref<UploadInstance>()
 const userDialogRef = ref();
 const state = reactive<SysUserState>({
 	tableData: {
@@ -130,23 +187,87 @@ const state = reactive<SysUserState>({
 			deptId: ''
 		},
 	},
+	// 用户导入参数
+	upload: {
+		// 是否显示弹出层（用户导入）
+		open: false,
+		// 弹出层标题（用户导入）
+		title: "用户导入",
+		// 是否禁用上传
+		isUploading: false,
+		// 是否更新已经存在的用户数据
+		updateSupport: 0,
+		// 设置上传的请求头部
+		headers: { Authorization: "Bearer " + Session.getToken() },
+		// 上传的地址
+		url: "/10086/system/user/importData"
+	},
 	DeptData: [] as TreeType[], // 部门数据
 	postDate: [] as TreeType[], // 岗位数据
 	dicts: ['sys_normal_disable', 'sys_user_sex'], // 字典数据 0-正常 1-禁用 0-男 1-女
 });
 
 
-
+/**
+ * 页面加载
+ */
 const handleSortChange = (val: any) => {
 	// eslint-disable-next-line no-console
 	console.log(val)
 }
 
-
+/**
+ * 多选
+ */
 const handleSelectionChange = (val: RowUserType[]) => {
 	multipleSelection.value = val
 }
+/** 导出按钮操作 */
+const handleExport = () => {
+	download('/10086/system/user/export', { ...state.tableData.param }, `user_${new Date().getTime()}.xlsx`)
 
+};
+/** 下载模板操作 */
+const importTemplate = () => {
+	download('/10086/system/user/importTemplate', {}, `user_template_${new Date().getTime()}.xlsx`)
+};
+// 文件上传中处理
+const handleFileUploadProgress = () => {
+	state.upload.isUploading = true;// 上传中，将上传状态设置为true
+
+};
+// 文件上传成功处理
+const handleFileSuccess = (response: any) => {
+	state.upload.isUploading = false;// 上传成功后，将上传状态设置为false
+	if (response.code === 200) {
+		ElMessage.success(response.msg);
+		closeUploadDialog();
+		getTableData();
+	} else if (response.code === 500) {
+		ElMessageBox.alert(
+			response.msg,
+			{
+				dangerouslyUseHTMLString: true,
+			}
+		)
+	} else {
+		Promise.reject(response.msg);
+		ElMessage.error(response.msg);
+	}
+};
+/**
+ * 文件上传处理
+ */
+const submitFileForm = () => {
+	uploadRef.value!.submit();
+};
+/**
+ * 关闭文件上传弹出层
+ */
+const closeUploadDialog = () => {
+	state.upload.open = false;
+	uploadRef.value!.clearFiles();
+};
 
 /**
  * 初始化表格数据
@@ -198,7 +319,6 @@ const handleCascadeChange = (val: any) => {
 	state.tableData.param.deptId = val[val.length - 1];
 };
 
-
 // 打开新增用户弹窗
 const onOpenAddUser = (type: string) => {
 	userDialogRef.value.openDialog(type, {}, state.DeptData);
@@ -218,14 +338,17 @@ const onRowDel = async (row: RowUserType) => {
 			confirmButtonText: '确认',
 			cancelButtonText: '取消',
 			type: 'warning'
+		}).then(async () => {
+			const res = await useUser().delUser(row.userId);
+			if (res.code === 200) {
+				ElMessage.success(res.msg);
+				getTableData();
+			} else {
+				ElMessage.error(res.msg);
+			}
+		}).catch(() => {
+			ElMessage.info('已取消删除');
 		});
-		const res = await useUser().delUser(row.userId);
-		if (res.code === 200) {
-			ElMessage.success(res.msg);
-			getTableData();
-		} else {
-			ElMessage.error(res.msg);
-		}
 	} catch (error) {
 		return Promise.reject(error);
 	}
@@ -263,6 +386,7 @@ const onBatchDel = async (rows?: RowUserType[]) => {
 		return Promise.reject(err)
 	}
 }
+
 
 // 分页改变
 const onHandleSizeChange = (val: number) => {
@@ -306,5 +430,26 @@ onMounted(() => {
 .mt10 {
 	max-width: 140px;
 	margin: 10px 0 10px 10px;
+}
+
+.el-upload__tip {
+
+	p {
+		display: flex;
+		align-items: center;
+
+		.el-link {
+			font-size: 12px;
+			vertical-align: baseline;
+		}
+	}
+
+	span {
+		display: flex;
+		align-items: center;
+		margin: 0 8px;
+	}
+
+
 }
 </style>

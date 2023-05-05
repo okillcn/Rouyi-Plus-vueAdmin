@@ -15,7 +15,7 @@
 					</el-icon>
 					重置
 				</el-button>
-				<el-button size="default" type="success" class="mt10" @click="onOpenAddMenu">
+				<el-button size="default" type="success" class="mt10" @click="onOpenAddMenu('add')">
 					<el-icon>
 						<ele-FolderAdd />
 					</el-icon>
@@ -74,6 +74,7 @@ const state = reactive({
 	},
 	param: {
 		menuName: '',
+		status: '',
 	},
 	dicts: ['sys_show_hide', 'sys_normal_disable'],
 });
@@ -95,14 +96,48 @@ const state = reactive({
     state.tableData.loading = false;
   }
 };
-// 打开新增菜单弹窗
-const onOpenAddMenu = (type: string,row?: RowMenuType) => {
-	menuDialogRef.value.openDialog(type, state.tableData.data, row);
+
+
+/**
+ * 打开新增菜单弹窗
+ * @param type add/edit
+ * @param row 当前行数据
+ * @Api /system/menu/listMenu
+ * @handleTree 处理成树形结构 /@/utils/tool
+ */
+const onOpenAddMenu = async (type: string,row?: RowMenuType) => {
+	try {
+    state.tableData.loading = true;
+    const res = await useMenu().listMenu(null);
+    const TreeData = handleTree(res.data, 'menuId', 'parentId', 'children');
+	menuDialogRef.value.openDialog(type, TreeData, row);
+  } catch (error) {
+    ElMessage.error('获取数据失败');
+    return Promise.reject(error);
+  } finally {
+    state.tableData.loading = false;
+  }
 };
-// 打开编辑菜单弹窗
-const onOpenEditMenu = (type: string, row: RowMenuType) => {
-	menuDialogRef.value.openDialog(type, state.tableData.data, row);
-};
+
+/**
+ * 打开编辑菜单弹窗
+ * @param type
+ * @param row
+ * @Api /system/menu/listMenu
+ * @handleTree 处理成树形结构 /@/utils/tool
+ */
+const onOpenEditMenu = async (type: string, row: RowMenuType) => {
+	try {
+    state.tableData.loading = true;
+    const res = await useMenu().listMenu(null);
+    const TreeData = handleTree(res.data, 'menuId', 'parentId', 'children');
+	menuDialogRef.value.openDialog(type, TreeData, row);
+  } catch (error) {
+    ElMessage.error('获取数据失败');
+    return Promise.reject(error);
+  } finally {
+    state.tableData.loading = false;
+  }};
 
 /**
  * 删除菜单
@@ -128,11 +163,12 @@ const onTabelRowDel = async (row: RowMenuType) => {
   }
 };
 /**
- * 重置表格数据
+ * 重置搜索数据
  */
  const resetParamData = () => {
 	state.param = {
 		menuName: '',
+		status: '',
 	};
 	getTableData();
 };

@@ -123,21 +123,21 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							icon: 'iconfont icon-icon-',
 						},
 					},
-					// {
-					// 	path: '/system/dept',
-					// 	name: 'systemDept',
-					// 	component: () => import('/@/views/system/dept/index.vue'),
-					// 	meta: {
-					// 		title: 'message.router.systemDept',
-					// 		link: '',
-					// 		isHide: false,
-					// 		noCache: true,
-					// 		isAffix: false,
-					// 		isIframe: false,
-					// 		roles: ['admin'],
-					// 		icon: 'ele-OfficeBuilding',
-					// 	},
-					// },
+					{
+						path: '/system/dept',
+						name: 'systemDept',
+						component: () => import('/@/views/system/dept/index.vue'),
+						meta: {
+							title: 'message.router.systemDept',
+							link: '',
+							isHide: false,
+							noCache: true,
+							isAffix: false,
+							isIframe: false,
+							roles: ['admin'],
+							icon: 'ele-OfficeBuilding',
+						},
+					},
 					{
 						path: '/system/dic',
 						name: 'systemDic',
@@ -1134,51 +1134,51 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 					icon: 'iconfont icon-gongju',
 				},
 			},
-			{
-				path: '/link',
-				name: 'layoutLinkView',
-				component: () => import('/@/layout/routerView/link.vue'),
-				meta: {
-					title: 'message.router.layoutLinkView',
-					link: 'https://element-plus.gitee.io/#/zh-CN/component/installation',
-					isHide: false,
-					noCache: false,
-					isAffix: false,
-					isIframe: false,
-					roles: ['admin'],
-					icon: 'iconfont icon-caozuo-wailian',
-				},
-			},
-			{
-				path: '/iframesOne',
-				name: 'layoutIframeViewOne',
-				component: () => import('/@/layout/routerView/iframes.vue'),
-				meta: {
-					title: 'message.router.layoutIframeViewOne',
-					link: 'https://nodejs.org/zh-cn/',
-					isHide: false,
-					noCache: true,
-					isAffix: true,
-					isIframe: true,
-					roles: ['admin'],
-					icon: 'iconfont icon-neiqianshujuchucun',
-				},
-			},
-			{
-				path: '/iframesTwo',
-				name: 'layoutIframeViewTwo',
-				component: () => import('/@/layout/routerView/iframes.vue'),
-				meta: {
-					title: 'message.router.layoutIframeViewTwo',
-					link: 'https://undraw.co/illustrations',
-					isHide: false,
-					noCache: true,
-					isAffix: true,
-					isIframe: true,
-					roles: ['admin'],
-					icon: 'iconfont icon-neiqianshujuchucun',
-				},
-			},
+			// {
+			// 	path: '/link',
+			// 	name: 'layoutLinkView',
+			// 	component: () => import('/@/layout/routerView/link.vue'),
+			// 	meta: {
+			// 		title: 'message.router.layoutLinkView',
+			// 		link: 'https://element-plus.gitee.io/#/zh-CN/component/installation',
+			// 		isHide: false,
+			// 		noCache: false,
+			// 		isAffix: false,
+			// 		isIframe: false,
+			// 		roles: ['admin'],
+			// 		icon: 'iconfont icon-caozuo-wailian',
+			// 	},
+			// },
+			// {
+			// 	path: '/iframesOne',
+			// 	name: 'layoutIframeViewOne',
+			// 	component: () => import('/@/layout/routerView/iframes.vue'),
+			// 	meta: {
+			// 		title: 'message.router.layoutIframeViewOne',
+			// 		link: 'https://nodejs.org/zh-cn/',
+			// 		isHide: false,
+			// 		noCache: true,
+			// 		isAffix: true,
+			// 		isIframe: true,
+			// 		roles: ['admin'],
+			// 		icon: 'iconfont icon-neiqianshujuchucun',
+			// 	},
+			// },
+			// {
+			// 	path: '/iframesTwo',
+			// 	name: 'layoutIframeViewTwo',
+			// 	component: () => import('/@/layout/routerView/iframes.vue'),
+			// 	meta: {
+			// 		title: 'message.router.layoutIframeViewTwo',
+			// 		link: 'https://undraw.co/illustrations',
+			// 		isHide: false,
+			// 		noCache: true,
+			// 		isAffix: true,
+			// 		isIframe: true,
+			// 		roles: ['admin'],
+			// 		icon: 'iconfont icon-neiqianshujuchucun',
+			// 	},
+			// },
 		],
 	},
 ];
@@ -1205,8 +1205,39 @@ export const notFoundAndNoPower = [
 			title: 'message.staticRoutes.noPower',
 			isHide: true,
 		},
+	}
+];
+
+/**
+ * 定义组件路由
+ * @description 用于开发时，不同功能的组件的路由，方便开发
+ */
+export const compontentRoutes = [
+	{
+		path: '/authRole',
+		name: 'authRole',
+		component: () => import('/@/views/system/role/authRole.vue'),
+		meta: {
+			title: '分配用户',
+		},
+
+	}, {
+		path: '/personal',
+		name: 'personal',
+		component: () => import('/@/views/personal/index.vue'),
+		meta: {
+			title: 'message.router.personal',
+			link: '',
+			isHide: false,
+			noCache: true,
+			isAffix: false,
+			isIframe: false,
+			roles: ['admin', 'common'],
+			icon: 'iconfont icon-gerenzhongxin',
+		},
 	},
 ];
+
 
 /**
  * 定义静态路由（默认路由）
@@ -1221,20 +1252,6 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 		component: () => import('/@/views/login/index.vue'),
 		meta: {
 			title: '登录',
-		},
-	}, {
-		path: '/test',
-		name: 'test',
-		component: () => import('/@/views/tools/test.vue'),
-		meta: {
-			title: 'message.router.tools',
-			link: '',
-			isHide: false,
-			noCache: true,
-			isAffix: false,
-			isIframe: false,
-			roles: ['admin', 'common'],
-			icon: 'iconfont icon-gongju',
 		},
 	}
 ];

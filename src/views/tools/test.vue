@@ -1,94 +1,51 @@
 <template>
-    <el-form ref="ruleFormRef" :model="ruleForm" status-icon :rules="rules" label-width="120px" class="demo-ruleForm">
-        <el-form-item label="Password" prop="pass">
-            <el-input v-model="ruleForm.pass" type="password" autocomplete="off" />
-        </el-form-item>
-        <el-form-item label="Confirm" prop="checkPass">
-            <el-input v-model="ruleForm.checkPass" type="password" autocomplete="off" />
-        </el-form-item>
-        <el-form-item label="Age" prop="age">
-            <el-input v-model.number="ruleForm.age" />
-        </el-form-item>
-        <el-form-item>
-            <el-button type="primary" @click="submitForm(ruleFormRef)">Submit</el-button>
-            <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
-        </el-form-item>
-    </el-form>
+    <el-button text @click="dialogVisible = true">
+        click to open the Dialog
+    </el-button>
+    <el-dialog v-model="dialogVisible" title="Tips" width="90%" :before-close="handleClose">
+        <el-upload class="upload-demo" drag action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15" multiple>
+            <el-icon class="el-icon--upload"><upload-filled /></el-icon>
+            <div class="el-upload__text">
+                Drop file here or <em>click to upload</em>
+            </div>
+            <template #tip>
+                <div class="el-upload__tip">
+                    是否更新已经存在的用户数据
+                    仅允许导入xls、xlsx格式文件。
+                    下载模板
+                </div>
+            </template>
+        </el-upload>
+        <template #footer>
+            <span class="dialog-footer">
+                <el-button @click="dialogVisible = false">Cancel</el-button>
+                <el-button type="primary" @click="dialogVisible = false">
+                    Confirm
+                </el-button>
+            </span>
+        </template>
+    </el-dialog>
 </template>
   
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
-import type { FormInstance, FormRules } from 'element-plus'
+import { ref } from 'vue'
+import { ElMessageBox } from 'element-plus'
+import { UploadFilled } from '@element-plus/icons-vue'
+const dialogVisible = ref(false)
 
-const ruleFormRef = ref<FormInstance>()
-
-const checkAge = (rule: any, value: any, callback: any) => {
-    if (!value) {
-        return callback(new Error('Please input the age'))
-    }
-    setTimeout(() => {
-        if (!Number.isInteger(value)) {
-            callback(new Error('Please input digits'))
-        } else {
-            if (value < 18) {
-                callback(new Error('Age must be greater than 18'))
-            } else {
-                callback()
-            }
-        }
-    }, 1000)
-}
-
-const validatePass = (rule: any, value: any, callback: any) => {
-    if (value === '') {
-        callback(new Error('Please input the password'))
-    } else {
-        if (ruleForm.checkPass !== '') {
-            if (!ruleFormRef.value) return
-            ruleFormRef.value.validateField('checkPass', () => null)
-        }
-        callback()
-    }
-}
-const validatePass2 = (rule: any, value: any, callback: any) => {
-    if (value === '') {
-        callback(new Error('Please input the password again'))
-    } else if (value !== ruleForm.pass) {
-        callback(new Error("Two inputs don't match!"))
-    } else {
-        callback()
-    }
-}
-
-const ruleForm = reactive({
-    pass: '',
-    checkPass: '',
-    age: '',
-})
-
-const rules = reactive<FormRules>({
-    pass: [{ validator: validatePass, trigger: 'blur' }],
-    checkPass: [{ validator: validatePass2, trigger: 'blur' }],
-    age: [{ validator: checkAge, trigger: 'blur' }],
-})
-
-const submitForm = (formEl: FormInstance | undefined) => {
-    if (!formEl) return
-    formEl.validate((valid) => {
-        if (valid) {
-            // eslint-disable-next-line no-console
-            console.log('submit!')
-        } else {
-            // eslint-disable-next-line no-console
-            console.log('error submit!')
-            return false
-        }
-    })
-}
-
-const resetForm = (formEl: FormInstance | undefined) => {
-    if (!formEl) return
-    formEl.resetFields()
+const handleClose = (done: () => void) => {
+    ElMessageBox.confirm('Are you sure to close this dialog?')
+        .then(() => {
+            done()
+        })
+        .catch(() => {
+            // catch error
+        })
 }
 </script>
+<style scoped>
+.dialog-footer button:first-child {
+    margin-right: 10px;
+}
+</style>
   

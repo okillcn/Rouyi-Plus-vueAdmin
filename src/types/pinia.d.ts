@@ -10,7 +10,7 @@ declare interface UserInfosState<T = any> {
 		user: {
 			userName: string;
 			[key:string]: T;
-			app: {
+			dept: {
 				[key:string]: T;
 			},
 			roles: String[],

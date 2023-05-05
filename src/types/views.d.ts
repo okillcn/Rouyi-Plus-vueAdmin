@@ -17,12 +17,32 @@ declare type PersonalState = {
 	newsInfoList: NewInfo[];
 	recommendList: Recommend[];
 	personalForm: {
-		name: string;
-		email: string;
-		autograph: string;
-		occupation: string;
-		phone: string;
-		sex: string;
+		createBy: string,
+		createTime: string,
+		updateBy: string,
+		updateTime: string,
+		userId: string,
+		deptId: number,
+		userName: string,
+		nickName: string,
+		password: string,
+		userType: string | null,
+		email: string,
+		phonenumber: string,
+		sex: "0" | "1" | "2",
+		avatar: string,
+		status: "0" | "1",
+		delFlag: "0" | "1",
+		loginIp: string,
+		loginDate: string,
+		remark: string,
+		dept: RowDeptType,
+		roles: any,
+		roleIds: [],
+		postIds: [],
+		roleId: number,
+		admin: boolean,
+		[k: string]: T;
 	};
 };
 
@@ -124,7 +144,7 @@ declare type RowUserType<T = any> = {
 	createTime: string,
 	updateBy: string,
 	updateTime: string,
-	userId: number,
+	userId: string,
 	deptId: number,
 	userName: string,
 	nickName: string,
@@ -179,8 +199,8 @@ declare type RowMenuType<T = any> = {
 	component: string;
 	queryParam: string;
 	isFrame: string;
-	isAffix:string,
-	isIframe:string,
+	isAffix: string,
+	isIframe: string,
 	isCache: string;
 	menuType: string;
 	visible: string;
@@ -221,14 +241,14 @@ declare type DeptTreeType = {
  * @param T
  * RowDeptType
  * */
-declare interface RowDeptType extends DeptTreeType {
+declare type RowDeptType<T = any> = {
 	createBy: string | null,
 	createTime: string | null,
 	updateBy: string | null,
 	updateTime: string | null,
 	parentName: string | null,
 	parentId: number | null,
-	children: any[],
+	children: T[],
 	deptId: number,
 	deptName: string,
 	orderNum: number | null,
@@ -238,7 +258,7 @@ declare interface RowDeptType extends DeptTreeType {
 	status: "0" | "1" | null,
 	delFlag: "0" | "1" | null,
 	ancestors: string | null
-	[k: string]: any;
+	[k: string]: T;
 }
 
 interface SysDeptTableType extends TableType {

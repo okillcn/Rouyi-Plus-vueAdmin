@@ -4,7 +4,7 @@
 			<div class="w100" v-for="v in setIframeList" :key="v.path" v-loading="v.meta.loading" element-loading-background="white">
 				<transition-group :name="name">
 					<iframe
-						:src="v.link"
+						:src="v.meta.link"
 						:key="v.path"
 						frameborder="0"
 						height="100%"

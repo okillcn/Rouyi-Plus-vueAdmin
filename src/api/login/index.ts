@@ -31,14 +31,10 @@ export function useLoginApi() {
 				params: data
 			})
 		},
-		signOut: (data: object) => {
+		signOut: () => {
 			return request({
 				url: '/10086/logout',
 				method: 'post',
-				headers: {
-					isToken: false
-				},
-				data,
 			});
 		},
 		getCodeImg: () => {

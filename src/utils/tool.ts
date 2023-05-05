@@ -1,4 +1,6 @@
-
+import { saveAs } from 'file-saver';
+import { ElMessage } from 'element-plus';
+import service from '/@/utils/request';
 /**
  * 通用js方法封装处理
  * Copyright (c) 2019 ruoyi
@@ -54,6 +56,29 @@ export function resetForm(this: any, refName:any) {
   if (this.$refs[refName]) {
     this.$refs[refName].resetFields();
   }
+}
+
+export const download = async (url: any, params: any, filename: any, config?: any) => {
+	try {
+		const data = await service.post(url, params, {
+			transformRequest: [(params_1: any) => { return tansParams(params_1); } ],
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+			responseType: 'blob',
+			...config
+		});
+		const isBlob = await blobValidate(data);
+		if (isBlob) {
+			const blob = new Blob([data] as any);
+			saveAs(blob, filename);
+		} else {
+			const resText = await data.text();
+			const rspObj = JSON.parse(resText);
+			ElMessage.error(rspObj.msg);
+		}
+	} catch (r) {
+		Promise.reject(r);
+		ElMessage.error('下载文件出现错误，请联系管理员！');
+	}
 }
 
 /*

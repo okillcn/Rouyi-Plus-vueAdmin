@@ -10,9 +10,8 @@
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
-						<el-form-item label="密码">
-							<el-input v-model="state.ruleForm.password" placeholder="请输入" type="password"
-								:disabled="state.dialog.type === 'edit'" clearable></el-input>
+						<el-form-item label="密码" v-auth="'system:user:restpwd'">
+							<el-button @click="resetUserPwd" type="danger" size="default">重置密码</el-button>
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
@@ -73,7 +72,6 @@
 							<el-input v-model="state.ruleForm.email" placeholder="请输入" clearable></el-input>
 						</el-form-item>
 					</el-col>
-
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="用户状态">
 							<el-switch v-model="state.ruleForm.status" active-value="0" inactive-value="1" inline-prompt
@@ -101,7 +99,8 @@
 <script setup lang="ts" name="systemUserDialog">
 import { reactive, ref } from 'vue';
 import { useUser } from '/@/api/system/user';
-import { ElMessage } from 'element-plus';
+import { useConfig } from '/@/api/system/config';
+import { ElMessage, ElMessageBox } from 'element-plus';
 // 定义子组件向父组件传值/事件
 const emit = defineEmits(['refresh']);
 
@@ -127,6 +126,7 @@ const state = reactive({
 		postIds: [],
 		roleId: 0
 	},
+	userId: 0,
 	DeptData: [] as TreeType[],
 	postDate: [] as RowPostType[],
 	roleData: [] as RowRoleType[],
@@ -155,6 +155,7 @@ const openDialog = async (type: string, row: RowUserType, deptData: TreeType[]) 
 		if (res.code === 200) {
 			const { user, postIds, roleIds, posts, roles } = res.data;
 			state.ruleForm = user;
+			state.userId = user.userId;
 			state.ruleForm.password = '';
 			state.ruleForm.postIds = postIds;
 			state.ruleForm.roleIds = roleIds;
@@ -215,6 +216,45 @@ const handleAddUser = async () => {
 	} else {
 		ElMessage.error(res.msg);
 	}
+};
+
+/**
+ * @method resetUserPwd()
+ * @Api resetUserPwd() 重置密码
+ */
+const resetUserPwd = async () => {
+    try {
+        // 确认删除用户
+        await ElMessageBox.confirm(`此操作将永久删除账户名称：“${state.ruleForm.userName}”，是否继续?`, '提示', {
+            confirmButtonText: '确认',
+            cancelButtonText: '取消',
+            type: 'warning',
+        });
+        // 获取默认密码
+        let defaultPassword = '';
+        try {
+            const res = await useConfig().getConfigKey('sys.user.initPassword');
+            if (res.code === 200) {
+                defaultPassword = res.msg;
+            } else {
+                ElMessage.error(res.msg);
+                return;
+            }
+        } catch (error) {
+            ElMessage.error('获取默认密码失败');
+            return Promise.reject(error);
+        }
+        // 重置用户密码
+        const res = await useUser().resetUserPwd(state.userId, defaultPassword);
+        if (res.code === 200) {
+            ElMessage.success(res.msg);
+        } else {
+            ElMessage.error(res.msg);
+        }
+    } catch (error) {
+        ElMessage.error('重置用户密码失败');
+		return Promise.reject(error);
+    }
 };
 
 /**级联选择器

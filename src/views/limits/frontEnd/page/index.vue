@@ -8,7 +8,7 @@
 			:closable="false"
 		></el-alert>
 		<el-alert
-			:title="`当前用户页面权限：[${userInfos.roles}]，当前用户按钮权限：[${userInfos.authBtnList}]`"
+			:title="`当前用户页面权限：[${userInfos.roles}]，当前用户按钮权限：[${userInfos.permissions}]`"
 			type="success"
 			:closable="false"
 			class="mt15"

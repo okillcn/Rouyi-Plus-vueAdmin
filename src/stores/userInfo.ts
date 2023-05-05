@@ -32,7 +32,7 @@ export const useUserInfo = defineStore('userInfo', {
 				createTime: '',// 创建时间
 				updateBy: '',// 更新者
 				updateTime: '',// 更新时间
-				app: {
+				dept: {
 					// 应用信息
 					createBy: '',
 					createTime: '',
@@ -42,9 +42,9 @@ export const useUserInfo = defineStore('userInfo', {
 					parentId: 0,
 					children: [],
 					ancestors: '',
-					appId: 0,
+					deptid: 0,
 					orderNum: 0,
-					appName: '',
+					deptName: '',
 					icon: '',
 					introduction: '',
 					web: '',
@@ -76,6 +76,7 @@ export const useUserInfo = defineStore('userInfo', {
 				setTimeout(() => {
 				const userInfo = useLoginApi().getUserInfo().then((res) => {
 						Session.setUserInfo(res.data);
+						useUserInfo().$state.userInfos = res.data;
 						return res.data;
 					});
 					resolve(userInfo);

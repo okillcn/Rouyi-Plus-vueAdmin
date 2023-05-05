@@ -12,11 +12,10 @@
 							<el-option label="启用" value="0"></el-option>
 							<el-option label="禁用" value="1"></el-option>
 						</el-select>
-						<el-form-item size="default" class="mt10" style="max-width: 300px;">
+						<el-form-item size="default" class="mt10" style="max-width: 250px;">
 							<el-date-picker v-model="state.tableData.dateRange" type="daterange" range-separator="至"
 								start-placeholder="开始时间" end-placeholder="结束时间" />
 						</el-form-item>
-
 						<el-button size="default" class="mt10" type="primary" @click="getTableData()">
 							<el-icon>
 								<ele-Search />
@@ -33,7 +32,14 @@
 							<el-icon>
 								<ele-FolderAdd />
 							</el-icon>
-							新增用户
+							添加角色
+						</el-button>
+						<el-button size="default" class="mt10" type="primary" plain v-auth="'system:user:export'"
+							@click="handleExport">
+							<el-icon>
+								<ele-Upload />
+							</el-icon>
+							导出
 						</el-button>
 					</el-col>
 				</el-row>
@@ -54,10 +60,12 @@
 				<el-table-column prop="createTime" label="创建时间" show-overflow-tooltip></el-table-column>
 				<el-table-column label="操作" width="100" fixed="right">
 					<template #default="scope">
-						<el-button size="small" text type="primary"
-							@click="onOpenEditRole('edit', scope.row)" :disabled="scope.row.admin">修改</el-button>
-						<el-button :disabled="scope.row.admin" size="small" text type="primary" 
+						<el-button size="small" text type="primary" @click="onOpenEditRole('edit', scope.row)"
+							:disabled="scope.row.admin">修改</el-button>
+						<el-button :disabled="scope.row.admin" size="small" text type="primary"
 							@click="onRowDel(scope.row)">删除</el-button>
+						<el-button :disabled="scope.row.admin" size="small" text type="primary"
+							@click="onOpenRoleUser(scope.row.roleId)">分配的用户</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -75,10 +83,10 @@
 import { defineAsyncComponent, reactive, onMounted, ref } from 'vue';
 import { ElMessageBox, ElMessage, dayjs } from 'element-plus';
 import { useRole } from '/@/api/system/role';
-
+import router from '/@/router';
+import { download } from '/@/utils/tool';
 // 引入组件
 const RoleDialog = defineAsyncComponent(() => import('/@/views/system/role/dialog.vue'));
-
 // 定义变量内容
 const roleDialogRef = ref();
 const state = reactive({
@@ -123,7 +131,9 @@ const getTableData = () => {
 		});
 };
 
-// 初始化表格数据
+/**
+ *  重置搜索条件
+ */
 const resetParamData = () => {
 	state.tableData.param = {
 		pageNum: 1,
@@ -144,6 +154,15 @@ const onOpenAddRole = (type: string) => {
 const onOpenEditRole = (type: string, row: Object) => {
 	roleDialogRef.value.openDialog(type, row);
 };
+// 打开角色分配用户弹窗
+const onOpenRoleUser = (roleId: number) => {
+	// authUserDialogRef.value.openDialog(roleId,roleName);
+	router.push({ path: '/authRole', query: { roleId: roleId } })
+};
+/** 导出按钮操作 */
+const handleExport = () => {
+	download('/10086/system/role/export', { ...state.tableData.param }, `role_${new Date().getTime()}.xlsx`)
+}
 
 /**
  * 删除角色
