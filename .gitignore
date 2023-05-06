@@ -2,7 +2,11 @@
 /protected/runtime/*
 /*.buildpath
 /.settings
-/downloads/*
 /node_modules/*
+/dist/*
 /.idea/*
 /.history/*
+/.vscode/*
+/.nuxt/*
+/.gitignore
+/.gitee/*

@@ -200,7 +200,7 @@ const state = reactive<SysUserState>({
 		// 设置上传的请求头部
 		headers: { Authorization: "Bearer " + Session.getToken() },
 		// 上传的地址
-		url: "/10086/system/user/importData"
+		url: "/system/user/importData"
 	},
 	DeptData: [] as TreeType[], // 部门数据
 	postDate: [] as TreeType[], // 岗位数据
@@ -224,12 +224,12 @@ const handleSelectionChange = (val: RowUserType[]) => {
 }
 /** 导出按钮操作 */
 const handleExport = () => {
-	download('/10086/system/user/export', { ...state.tableData.param }, `user_${new Date().getTime()}.xlsx`)
+	download('/system/user/export', { ...state.tableData.param }, `user_${new Date().getTime()}.xlsx`)
 
 };
 /** 下载模板操作 */
 const importTemplate = () => {
-	download('/10086/system/user/importTemplate', {}, `user_template_${new Date().getTime()}.xlsx`)
+	download('/system/user/importTemplate', {}, `user_template_${new Date().getTime()}.xlsx`)
 };
 // 文件上传中处理
 const handleFileUploadProgress = () => {

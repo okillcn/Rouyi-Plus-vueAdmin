@@ -29,7 +29,7 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
 			hmr: true, // 开启热更新
 			proxy: {
 				'/10086': {
-					target: 'http://localhost:8080',
+					target: process.env.VITE_API_URL,
 					ws: true,	// 是否启用websockets
 					changeOrigin: true, // 开启代理服务器
 					rewrite: (path) => path.replace(/^\/10086/, ''),

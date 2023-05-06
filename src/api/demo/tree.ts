@@ -15,34 +15,34 @@ export function useTreeApi() {
   return {
     listTree: (query: object) => {
       return request({
-        url: '/10086/demo/tree/list',
+        url: '/demo/tree/list',
         method: 'get',
         params: query
       })
     },
     getTree: (id: string) => {
       return request({
-        url: '/10086/demo/tree/' + id,
+        url: '/demo/tree/' + id,
         method: 'get'
       })
     },
     addTree: (data: object) => {
       return request({
-        url: '/10086/demo/tree',
+        url: '/demo/tree',
         method: 'post',
         data: data
       })
     },
     updateTree: (data: object) => {
       return request({
-        url: '/10086/demo/tree',
+        url: '/demo/tree',
         method: 'put',
         data: data
       })
     },
     delTree: (id: string) => {
       return request({
-        url: '/10086/demo/tree/' + id,
+        url: '/demo/tree/' + id,
         method: 'delete'
       })
     }

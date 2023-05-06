@@ -17,34 +17,34 @@ export function useOssConfig() {
   return {
     listOssConfig: (query:any) => {
       return request({
-        url: '/10086/system/oss/config/list',
+        url: '/system/oss/config/list',
         method: 'get',
         params: query
       })
     },
     getOssConfig: (ossConfigId:any) => {
       return request({
-        url: '/10086/system/oss/config/' + ossConfigId,
+        url: '/system/oss/config/' + ossConfigId,
         method: 'get'
       })
     },
     addOssConfig: (data:any) => {
       return request({
-        url: '/10086/system/oss/config',
+        url: '/system/oss/config',
         method: 'post',
         data: data
       })
     },
     updateOssConfig: (data:any) => {
       return request({
-        url: '/10086/system/oss/config',
+        url: '/system/oss/config',
         method: 'put',
         data: data
       })
     },
     delOssConfig: (ossConfigId:any) => {
       return request({
-        url: '/10086/system/oss/config/' + ossConfigId,
+        url: '/system/oss/config/' + ossConfigId,
         method: 'delete'
       })
     },
@@ -55,7 +55,7 @@ export function useOssConfig() {
         configKey
       }
       return request({
-        url: '/10086/system/oss/config/changeStatus',
+        url: '/system/oss/config/changeStatus',
         method: 'put',
         data: data
       })

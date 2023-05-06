@@ -16,41 +16,41 @@ export function useDemoApi() {
   return {
     listDemo: (query: object) => {
       return request({
-        url: '/10086/demo/demo/list',
+        url: '/demo/demo/list',
         method: 'get',
         params: query
       })
     },
     pageDemo: (query: object) => {
       return request({
-        url: '/10086/demo/demo/page',
+        url: '/demo/demo/page',
         method: 'get',
         params: query
       })
     },
     getDemo: (id: string) => {
       return request({
-        url: '/10086/demo/demo/' + id,
+        url: '/demo/demo/' + id,
         method: 'get'
       })
     },
     addDemo: (data: object) => {
       return request({
-        url: '/10086/demo/demo',
+        url: '/demo/demo',
         method: 'post',
         data: data
       })
     },
     updateDemo: (data: object) => {
       return request({
-        url: '/10086/demo/demo',
+        url: '/demo/demo',
         method: 'put',
         data: data
       })
     },
     delDemo: (id: string) => {
       return request({
-        url: '/10086/demo/demo/' + id,
+        url: '/demo/demo/' + id,
         method: 'delete'
       })
     }

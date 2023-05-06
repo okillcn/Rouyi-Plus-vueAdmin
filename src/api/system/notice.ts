@@ -14,34 +14,34 @@ export function useNotice() {
   return {
     listNotice: (query:any) => {
       return request({
-        url: '/10086/system/notice/list',
+        url: '/system/notice/list',
         method: 'get',
         params: query
       })
     },
     getNotice: (noticeId:any) => {
       return request({
-        url: '/10086/system/notice/' + noticeId,
+        url: '/system/notice/' + noticeId,
         method: 'get'
       })
     },
     addNotice: (data:any) => {
       return request({
-        url: '/10086/system/notice',
+        url: '/system/notice',
         method: 'post',
         data: data
       })
     },
     updateNotice: (data:any) => {
       return request({
-        url: '/10086/system/notice',
+        url: '/system/notice',
         method: 'put',
         data: data
       })
     },
     delNotice: (noticeId:any) => {
       return request({
-        url: '/10086/system/notice/' + noticeId,
+        url: '/system/notice/' + noticeId,
         method: 'delete'
       })
     }

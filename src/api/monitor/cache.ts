@@ -18,43 +18,43 @@ export function useCacheApi() {
   return {
     getCache: () => {
       return request({
-        url: '/10086/monitor/cache',
+        url: '/monitor/cache',
         method: 'get'
       })
     },
     listCacheName: () => {
       return request({
-        url: '/10086/monitor/cache/getNames',
+        url: '/monitor/cache/getNames',
         method: 'get'
       })
     },
     listCacheKey: (cacheName: string) => {
       return request({
-        url: '/10086/monitor/cache/getKeys/' + cacheName,
+        url: '/monitor/cache/getKeys/' + cacheName,
         method: 'get'
       })
     },
     getCacheValue: (cacheName: string, cacheKey: string) => {
       return request({
-        url: '/10086/monitor/cache/getValue/' + cacheName + '/' + cacheKey,
+        url: '/monitor/cache/getValue/' + cacheName + '/' + cacheKey,
         method: 'get'
       })
     },
     clearCacheName: (cacheName: string) => {
       return request({
-        url: '/10086/monitor/cache/clearCacheName/' + cacheName,
+        url: '/monitor/cache/clearCacheName/' + cacheName,
         method: 'delete'
       })
     },
     clearCacheKey: (cacheName: string, cacheKey: string) => {
       return request({
-        url: '/10086/monitor/cache/clearCacheKey/'+ cacheName + "/" + cacheKey,
+        url: '/monitor/cache/clearCacheKey/'+ cacheName + "/" + cacheKey,
         method: 'delete'
       })
     },
     clearCacheAll: () => {
       return request({
-        url: '/10086/monitor/cache/clearCacheAll',
+        url: '/monitor/cache/clearCacheAll',
         method: 'delete'
       })
     }

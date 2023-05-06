@@ -16,34 +16,34 @@ export function usePost() {
   return {
     listPost: (query:any) => {
       return request({
-        url: '/10086/system/post/list',
+        url: '/system/post/list',
         method: 'get',
         params: query
       })
     },
     getPost: (postId:any) => {
       return request({
-        url: '/10086/system/post/' + postId,
+        url: '/system/post/' + postId,
         method: 'get'
       })
     },
     addPost: (data:any) => {
       return request({
-        url: '/10086/system/post',
+        url: '/system/post',
         method: 'post',
         data: data
       })
     },
     updatePost: (data:any) => {
       return request({
-        url: '/10086/system/post',
+        url: '/system/post',
         method: 'put',
         data: data
       })
     },
     delPost: (postId:any) => {
       return request({
-        url: '/10086/system/post/' + postId,
+        url: '/system/post/' + postId,
         method: 'delete'
       })
     }

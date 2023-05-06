@@ -144,40 +144,40 @@ export function useRole() {
   return {
     /**
      * 查询角色列表
-     * @url /10086/system/role/list
+     * @url /system/role/list
      * @param query
      * @returns
      * */
     listRole: (query:any) => {
       return request({
-        url: '/10086/system/role/list',
+        url: '/system/role/list',
         method: 'get',
         params: query
       })
     },
     getRole: (roleId:any) => {
       return request({
-        url: '/10086/system/role/' + roleId,
+        url: '/system/role/' + roleId,
         method: 'get'
       })
     },
     addRole: (data:any) => {
       return request({
-        url: '/10086/system/role',
+        url: '/system/role',
         method: 'post',
         data: data
       })
     },
     updateRole: (data:any) => {
       return request({
-        url: '/10086/system/role',
+        url: '/system/role',
         method: 'put',
         data: data
       })
     },
     dataScope: (data:any) => {
       return request({
-        url: '/10086/system/role/dataScope',
+        url: '/system/role/dataScope',
         method: 'put',
         data: data
       })
@@ -188,61 +188,61 @@ export function useRole() {
         status
       }
       return request({
-        url: '/10086/system/role/changeStatus',
+        url: '/system/role/changeStatus',
         method: 'put',
         data: data
       })
     },
     delRole: (roleId:any) => {
       return request({
-        url: '/10086/system/role/' + roleId,
+        url: '/system/role/' + roleId,
         method: 'delete'
       })
     },
     allocatedUserList: (query:any) => {
       return request({
-        url: '/10086/system/role/authUser/allocatedList',
+        url: '/system/role/authUser/allocatedList',
         method: 'get',
         params: query
       })
     },
     /**
      * 查询角色未授权用户列表
-     * @url /10086/system/role/authUser/unallocatedList
+     * @url /system/role/authUser/unallocatedList
      * @param query 
      * @returns 
      */
     unallocatedUserList: (query:any) => {
       return request({
-        url: '/10086/system/role/authUser/unallocatedList',
+        url: '/system/role/authUser/unallocatedList',
         method: 'get',
         params: query
       })
     },
     authUserCancel: (data:any) => {
       return request({
-        url: '/10086/system/role/authUser/cancel',
+        url: '/system/role/authUser/cancel',
         method: 'put',
         data: data
       })
     },
     authUserCancelAll: (data:any) => {
       return request({
-        url: '/10086/system/role/authUser/cancelAll',
+        url: '/system/role/authUser/cancelAll',
         method: 'put',
         params: data
       })
     },
     authUserSelectAll: (data:any) => {
       return request({
-        url: '/10086/system/role/authUser/selectAll',
+        url: '/system/role/authUser/selectAll',
         method: 'put',
         params: data
       })
     },
     deptTreeSelect: (roleId:any) => {
       return request({
-        url: '/10086/system/role/deptTree/' + roleId,
+        url: '/system/role/deptTree/' + roleId,
         method: 'get'
       })
     }

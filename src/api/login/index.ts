@@ -12,7 +12,7 @@ export function useLoginApi() {
 	return {
 		signIn: (data: object) => {
 			return request({
-				url: '/10086/login',
+				url: '/login',
 				method: 'post',
 				headers: {
 					isToken: false
@@ -26,20 +26,20 @@ export function useLoginApi() {
 				state
 			}
 			return request({
-				url: '/10086/system/auth/social-login/' + source,
+				url: '/system/auth/social-login/' + source,
 				method: 'get',
 				params: data
 			})
 		},
 		signOut: () => {
 			return request({
-				url: '/10086/logout',
+				url: '/logout',
 				method: 'post',
 			});
 		},
 		getCodeImg: () => {
 			return request({
-				url: '/10086/captchaImage',
+				url: '/captchaImage',
 				headers: {
 					isToken: false
 				},
@@ -49,14 +49,14 @@ export function useLoginApi() {
 		},
 		getCodeSms: () => {
 			return request({
-				url: '/10086/captsms',
+				url: '/captsms',
 				method: 'get',
 				timeout: 20000
 			})
 		},
 		getUserInfo: () => {
 			return request({
-				url: '/10086/getInfo',
+				url: '/getInfo',
 				method: 'get',
 			});
 		},

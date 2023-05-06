@@ -20,51 +20,51 @@ export function useMenu() {
   return {
     getRouterMenu: () => {
       return request({
-        url: '/10086/getRouters',
+        url: '/getRouters',
         method: 'get',
       })
     },
     listMenu: () => {
       return request({
-        url: '/10086/system/menu/list',
+        url: '/system/menu/list',
         method: 'get',
       })
     },
     getMenu: (menuId:any) => {
       return request({
-        url: '/10086/system/menu/' + menuId,
+        url: '/system/menu/' + menuId,
         method: 'get'
       })
     },
     treeselect: () => {
       return request({
-        url: '/10086/system/menu/treeselect',
+        url: '/system/menu/treeselect',
         method: 'get'
       })
     },
     roleMenuTreeselect: (roleId:any) => {
       return request({
-        url: '/10086/system/menu/roleMenuTreeselect/' + roleId,
+        url: '/system/menu/roleMenuTreeselect/' + roleId,
         method: 'get'
       })
     },
     addMenu: (data:any) => {
       return request({
-        url: '/10086/system/menu',
+        url: '/system/menu',
         method: 'post',
         data: data
       })
     },
     updateMenu: (data:any) => {
       return request({
-        url: '/10086/system/menu',
+        url: '/system/menu',
         method: 'put',
         data: data
       })
     },
     delMenu: (menuId:any) => {
       return request({
-        url: '/10086/system/menu/' + menuId,
+        url: '/system/menu/' + menuId,
         method: 'delete'
       })
     }

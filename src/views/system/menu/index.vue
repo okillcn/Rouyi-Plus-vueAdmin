@@ -22,7 +22,7 @@
 					新增菜单
 				</el-button>
 			</div>
-			<el-table :data="state.tableData.data" v-loading="state.tableData.loading" style="width: 100%" row-key="path"
+			<el-table :data="state.tableData.data" v-loading="state.tableData.loading" style="width: 100%" row-key="menuId"
 				:tree-props="{ children: 'children', hasChildren: 'hasChildren' }">
 				<el-table-column label="菜单名称" show-overflow-tooltip width="200">
 					<template #default="scope">

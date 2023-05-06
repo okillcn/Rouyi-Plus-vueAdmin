@@ -19,40 +19,40 @@ export function useConfig() {
   return {
     listConfig: (query:any) => {
       return request({
-        url: '/10086/system/config/list',
+        url: '/system/config/list',
         method: 'get',
         params: query
       })
     },
     getConfig: (configId:any) => {
       return request({
-        url: '/10086/system/config/' + configId,
+        url: '/system/config/' + configId,
         method: 'get'
       })
     },
     getConfigKey: (configKey:any) => {
       return request({
-        url: '/10086/system/config/configKey/' + configKey,
+        url: '/system/config/configKey/' + configKey,
         method: 'get'
       })
     },
     addConfig: (data:any) => {
       return request({
-        url: '/10086/system/config',
+        url: '/system/config',
         method: 'post',
         data: data
       })
     },
     updateConfig: (data:any) => {
       return request({
-        url: '/10086/system/config',
+        url: '/system/config',
         method: 'put',
         data: data
       })
     },
     updateConfigByKey: (key:any, value:any) => {
       return request({
-        url: '/10086/system/config/updateByKey',
+        url: '/system/config/updateByKey',
         method: 'put',
         data: {
           configKey: key,
@@ -62,13 +62,13 @@ export function useConfig() {
     },
     delConfig: (configId:any) => {
       return request({
-        url: '/10086/system/config/' + configId,
+        url: '/system/config/' + configId,
         method: 'delete'
       })
     },
     refreshCache: () => {
       return request({
-        url: '/10086/system/config/refreshCache',
+        url: '/system/config/refreshCache',
         method: 'delete'
       })
     }

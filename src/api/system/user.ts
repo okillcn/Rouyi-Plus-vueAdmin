@@ -28,40 +28,40 @@ export function useUser() {
   return {
       listUser: (query:any) => {
         return request({
-          url: '/10086/system/user/list',
+          url: '/system/user/list',
           method: 'get',
           params: query
         })
       },
       getUser: (userId: any) => {
         return request({
-          url: '/10086/system/user/' + parseStrEmpty(userId),
+          url: '/system/user/' + parseStrEmpty(userId),
           method: 'get'
         })
       },
       getUsers: () => {
         return request({
-          url: '/10086/system/user/',
+          url: '/system/user/',
           method: 'get'
         })
       },
       addUser: (data:any) => {
         return request({
-          url: '/10086/system/user',
+          url: '/system/user',
           method: 'post',
           data: data
         })
       },
       updateUser: (data:any) => {
         return request({
-          url: '/10086/system/user',
+          url: '/system/user',
           method: 'put',
           data: data
         })
       },
       delUser: (userId:any) => {
         return request({
-          url: '/10086/system/user/' + userId,
+          url: '/system/user/' + userId,
           method: 'delete'
         })
       },
@@ -71,7 +71,7 @@ export function useUser() {
           password
         }
         return request({
-          url: '/10086/system/user/resetPwd',
+          url: '/system/user/resetPwd',
           method: 'put',
           data: data
         })
@@ -82,20 +82,20 @@ export function useUser() {
           status
         }
         return request({
-          url: '/10086/system/user/changeStatus',
+          url: '/system/user/changeStatus',
           method: 'put',
           data: data
         })
       },
       getUserProfile: () => {
         return request({
-          url: '/10086/system/user/profile',
+          url: '/system/user/profile',
           method: 'get'
         })
       },
       updateUserProfile: (data:any) => {
         return request({
-          url: '/10086/system/user/profile',
+          url: '/system/user/profile',
           method: 'put',
           data: data
         })
@@ -106,21 +106,21 @@ export function useUser() {
           newPassword
         }
         return request({
-          url: '/10086/system/user/profile/updatePwd',
+          url: '/system/user/profile/updatePwd',
           method: 'put',
           data: data
         })
       },
       uploadAvatar: (data:any) => {
         return request({
-          url: '/10086/system/user/profile/avatar',
+          url: '/system/user/profile/avatar',
           method: 'post',
           data: data
         })
       },
       getAuthRole: (userId:any) => {
         return request({
-          url: '/10086/system/user/authRole/' + userId,
+          url: '/system/user/authRole/' + userId,
           method: 'get'
         })
       },
@@ -130,14 +130,14 @@ export function useUser() {
           roleIds
         }
         return request({
-          url: '/10086/system/user/authRole',
+          url: '/system/user/authRole',
           method: 'put',
           data: data
         })
       },
       appTree: () => {
         return request({
-          url: '/10086/system/user/deptTree',
+          url: '/system/user/deptTree',
           method: 'get'
         })
       }

@@ -12,20 +12,20 @@ export function useOss() {
   return {
     listOss: (query:any) => {
       return request({
-        url: '/10086/system/oss/list',
+        url: '/system/oss/list',
         method: 'get',
         params: query
       })
     },
     listByIds: (ossId:any) => {
       return request({
-        url: '/10086/system/oss/listByIds/' + ossId,
+        url: '/system/oss/listByIds/' + ossId,
         method: 'get'
       })
     },
     delOss: (ossId:any) => {
       return request({
-        url: '/10086/system/oss/' + ossId,
+        url: '/system/oss/' + ossId,
         method: 'delete'
       })
     }

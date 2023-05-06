@@ -162,7 +162,7 @@ export default {
 		fourIsFooter: '开启 Footer',
 		fourIsGrayscale: '灰色模式',
 		fourIsInvert: '色弱模式',
-		isRequestRoutes: '开发者模式',
+		isRequestRoutes: '后端路由模式',
 		fourIsDark: '深色模式',
 		fourIsWartermark: '开启水印',
 		fourWartermarkText: '水印文案',
@@ -183,7 +183,7 @@ export default {
 		copyTextError: '复制失败！',
 	},
 	upgrade: {
-		title: '新版本升级',
+		title: '欢迎欢迎',
 		msg: '新版本来啦，马上更新尝鲜吧！不用担心，更新很快的哦！',
 		desc: '提示：更新会还原默认配置',
 		btnOne: '残忍拒绝',

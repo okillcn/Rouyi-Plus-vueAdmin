@@ -161,7 +161,7 @@ const onOpenRoleUser = (roleId: number) => {
 };
 /** 导出按钮操作 */
 const handleExport = () => {
-	download('/10086/system/role/export', { ...state.tableData.param }, `role_${new Date().getTime()}.xlsx`)
+	download('/system/role/export', { ...state.tableData.param }, `role_${new Date().getTime()}.xlsx`)
 }
 
 /**
